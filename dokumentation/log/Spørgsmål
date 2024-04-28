@@ -1,3 +1,10 @@
 Her listes de spørgsmål vi måtte have. De undersøges, studeres, læses, Googles eller tages med til vejledning, hvis nødvendigt.
 
+1. Hvad menes med "en simpel login dialog" - er det uden kryptering og sikkederhed
+2. At gemme/læse ip-adresser ?? De kan ikke gemmes i db, hvis det er ip-adresser til netop db
+forstår ikke helt dette. Forstår at det skal være fleksibelt og nemt at eskalerer.
+3. Mock-up: Det er en statisk præsentation af en brugergrænseflade, der visualiser 
+funktionalitet fra brugeres synspunkt. Under afsnit Prototype: "Hvad har vi lært i Mock-up" ?? 
+Det er jo en iterativ proces??
+
 
