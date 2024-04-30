@@ -4,11 +4,24 @@ Eksempel: Flowchart - Mohammad.
 Efter godkendelse + OK, så efter endt proces: Flowchart - Mohammad OK
 -------------------------------------------------
 
-
+ProjektOpstart: Milepæl 0 
 1 Git oprettelse - Nickolaj         ok
 2 Log + diver oprettelse - Nickolaj ok
-3 Projektplan - Allan + Fahad
+3 Projektplan - Allan + Fahad       ok
 4 Gantt - Fahad
-5 Rapport opstart - Allan
+5 Rapport opstart - Allan            ok
 6 Foreløbig Flowchart - Mohammad
 0.1 WBS - Alle                      ok
+
+Analysen: Milepæl 1
+7 Problemformulering - Allan+Alle
+8 Problemstilling - Allan+Alle
+9 User Stories - Fahad+Alle
+10 Kravsanalyse - Fahad+Alle
+
+
+Forløb: Milepæl 2
+Projektforløb
+11 Afgrænsning - Allan+Alle
+12 Succeskriterier - Allan
+13 Kravspecifikation - Fahad+Alle
