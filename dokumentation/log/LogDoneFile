@@ -5,23 +5,54 @@ Efter godkendelse + OK, så efter endt proces: Flowchart - Mohammad OK
 -------------------------------------------------
 
 ProjektOpstart: Milepæl 0 
-1 Git oprettelse - Nickolaj         ok
-2 Log + diver oprettelse - Nickolaj ok
-3 Projektplan - Allan + Fahad       ok
+1 Git oprettelse - Nickolaj          ok
+2 Log + diver oprettelse - Nickolaj  ok
+3 Projektplan - Allan + Fahad        ok
 4 Gantt - Fahad                      ok
 5 Rapport opstart - Allan            ok
 6 Foreløbig Flowchart - Mohammad
-0.1 WBS - Alle                      ok
+0.1 WBS - Alle                       ok
 
 Analysen: Milepæl 1
 7 Problemformulering - Allan+Alle    ok
-8 Problemstilling - Allan+Alle        ok
-9 User Stories - Fahad+Alle
-10 Kravsanalyse - Fahad+Alle
-
+8 Problemstilling - Allan+Alle       ok
+9 User Stories - Fahad+Alle          ok
+10 Kravsanalyse - Fahad+Alle         ok
 
 Forløb: Milepæl 2
 Projektforløb
-11 Afgrænsning - Allan+Alle          ok
+11 Afgrænsning - Allan+Alle           ok
 12 Succeskriterier - Allan            ok
-13 Kravspecifikation - Fahad+Alle
+13 Kravspecifikation - Fahad+Alle     ok
+
+
+
+Design: Milepæl 3
+14 Design værktøjer
+  14.1 OOP               Allan
+  14.2 Design Pattern    Allan
+  14.3 UML               Allan      
+  14.6 DP: Singleton v/database adgangen
+  14.7 DP: Observer
+  14.8 DP: Adapter
+  14.p DP: Repository
+15 Adfærd
+  15.1 UML - Use Case (adfærd)  Mohammad
+  15.2 UML - Interaction Overview Diagram (adfærd) ????
+  15.3 UML - Sequence (adfærd)  Nickolaj (admin UI), Fahad (View/Controller), Allan (Controller/Model)
+  15.4 UML - Klasse (structural)
+  15.5 UML - Aktivitet eller State Machine (adfærd) ???
+16 Arkitektur: MVC
+17 Koncept
+18 Teknologi
+19 Mock-up
+
+
+
+
+
+
+
+
+
+
