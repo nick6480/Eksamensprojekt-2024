@@ -1,0 +1,29 @@
+@startuml
+participant User
+participant LoginHandler
+participant AuthenticationController
+participant DataHandler
+participant DataController
+
+User ->> LoginHandler: Attempt to log in (username: string, password: string)
+LoginHandler ->> AuthenticationController: Send login request (username: string, password: string)
+AuthenticationController ->> AuthenticationController: Validate login information
+AuthenticationController -->> LoginHandler: Send authentication status back
+
+loop 
+    User ->> DataHandler: Makes data request (e.g., change password)
+    DataHandler ->> DataController: Send data request (e.g., change password: string)
+    DataController -> DataController: Validate request (data type and length)
+    DataController -->> DataHandler: Send JSON response file back
+end loop
+
+User ->> DataHandler: Clicks on various components
+DataHandler -> DataHandler: Load data from local storage
+
+User ->> DataHandler: Request to change password (new password: string)
+DataHandler ->> DataController: Send request to change password (new password: string)
+DataController -> DataController: Validate request to change password (data type and length)
+DataController -->> DataHandler: Send confirmation of password change
+
+@enduml
+
