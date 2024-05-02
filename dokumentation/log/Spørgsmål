@@ -11,6 +11,6 @@ REST API), MS SQL, UI (windows teknologi)
 4. Diskussion....evaluer disse nævnte punkter??
 5. Simpel login er ikke nødvendigvis en afgrænsning i sikkerhed og kryptering. 
 Sikker login kræver SSL / HTTPS altså certifikat. Vi agter at afgrænse dette og gå 
-med en kryptering, da tiden løber
+med en harshing/kryptering, og en stærk password validering .da tiden løber
 
 
