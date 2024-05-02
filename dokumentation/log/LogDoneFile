@@ -26,30 +26,29 @@ Projektforløb
 13 Kravspecifikation -               Fahad+Alle     ok
 
 Design: Milepæl 3
-14 Design værktøjer                  Allan
-  14.1 OOP                           Allan
-  14.2 Design Pattern                Allan
-  14.3 UML                           Allan      
+14 Design værktøjer                  Allan    ok  
+  14.1 OOP                           Allan    ok
+  14.2 Design Pattern                Allan    ok
+  14.3 UML                           Allan    ok  
   14.6 DP: Singleton v/database adgangen
   14.7 DP: Observer
   14.8 DP: Adapter
   14.p DP: Repository
-15 Adfærd                                 Allan
+15 Adfærd                                 Allan      ok
   15.1 UML - Use Case (adfærd)            Mohammad
-  15.2 UML - Interaction Overview Diagram (adfærd) ????
   15.3 UML - Sequence (adfærd)            Nickolaj (admin UI), Fahad (View/Controller), Allan (Controller/Model)
   15.4 UML - Klasse (structural)
-  15.5 UML - Aktivitet eller State Machine (adfærd) ???
+  15.5 UML - State Machine (adfærd)       Nickolaj
 16 Arkitektur: MVC                        Allan
 17 Koncept
 18 Teknologi
 19 Mock-up                                Nickolaj
 
 Kode:
-A. Controller - Webserver
-B. Model - MS SQL Databasen/adgangen, behandling af data
-C. ADM UI - 
-D. HTML/CSS JS - 
+A. Controller - Webserver              Fahad
+B. Model - MS SQL Databasen/adgangen   Allan
+C. ADM UI -                            Nickolaj
+D. HTML/CSS JS -                       Mohammad
 
 
 
