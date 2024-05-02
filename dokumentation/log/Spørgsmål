@@ -1,10 +1,16 @@
 Her listes de spørgsmål vi måtte have. De undersøges, studeres, læses, Googles eller tages med til vejledning, hvis nødvendigt.
 
-1. Hvad menes med "en simpel login dialog" - er det uden kryptering og sikkederhed
-2. At gemme/læse ip-adresser ?? De kan ikke gemmes i db, hvis det er ip-adresser til netop db
-forstår ikke helt dette. Forstår at det skal være fleksibelt og nemt at eskalerer.
-3. Mock-up: Det er en statisk præsentation af en brugergrænseflade, der visualiser 
-funktionalitet fra brugeres synspunkt. Under afsnit Prototype: "Hvad har vi lært i Mock-up" ?? 
-Det er jo en iterativ proces??
+1. Adfærdsanalyse, , vi tænker UML adfærdsdiagrammer.
+2. Koncept evaluering, vi har jo ikke tid til at sætte en anden arkitektur op 
+for at se direkte fordele. Hvilken kriterie kan vi evt vælge ud over kravene, samt vores s
+succes kriterie ? Vi har ingen alternativ.....
+3. Teknologi beskrivelse: Helt lav praktisk, så er det omkring webserveren(HTML/CSS JS, 
+REST API), MS SQL, UI (windows teknologi)
+...er det også omkring hvad vi bruger til log og kryptering ??
+3. I Prototype afsnit: Implementering, , værktøjer , brugergrænseflade, systemudvikling
+4. Diskussion....evaluer disse nævnte punkter??
+5. Simpel login er ikke nødvendigvis en afgrænsning i sikkerhed og kryptering. 
+Sikker login kræver SSL / HTTPS altså certifikat. Vi agter at afgrænse dette og gå 
+med en kryptering, da tiden løber
 
 
