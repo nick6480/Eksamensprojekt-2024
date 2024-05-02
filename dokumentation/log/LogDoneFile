@@ -35,7 +35,7 @@ Design: Milepæl 3
   14.8 DP: Adapter
   14.p DP: Repository
 15 Adfærd                                 Allan      ok
-  15.1 UML - Use Case (adfærd)            Mohammad   ok
+  15.1 UML - Use Case (adfærd)            Mohammad   
   15.3 UML - Sequence (adfærd)            Nickolaj (admin UI), Fahad (View/Controller), Allan (Controller/Model)
   15.4 UML - Klasse (structural)
   15.5 UML - State Machine (adfærd)       Nickolaj
