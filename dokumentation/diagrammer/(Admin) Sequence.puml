@@ -1,35 +1,17 @@
-@startuml
+@startuml Admin Sequence
 
 ' Define participants
 participant GuiHandler as Gui
 participant LoginHandler as Login
 participant GuiStateMachine as GuiState
-participant DataHandler as Data
+
 participant LogHandler as Log
 participant TableStateMachine as Table
 participant DbSettings as Settings
+participant DataHandler as Data
 
 ' Define interactions and conditions
-Gui -> Login : Change password
-activate Gui
-Login -> Login : Validation
-alt failed auth
-    Login --> Gui : Return error msg
 
-else successful auth
-    Login -> Data : Update password
-
-end
-Data -> Data : Update db
-alt failed
-    Data --> Login : Return error msg
-
-else succes
-    Data -> Login : Return success
-
-end
-Login --> Gui : Return succes / error msg
-deactivate Gui
 
 Gui -> Login : Login
 activate Gui
@@ -80,8 +62,6 @@ deactivate Log
 
 Table --> Gui : Update Table GUI
 deactivate Table
-
-
 
 
 
