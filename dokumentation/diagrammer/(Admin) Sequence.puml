@@ -85,6 +85,6 @@ else successful
     activate Settings
 end
 Settings --> Gui : Update DB Settings GUI
-deactivate settings
+deactivate Settings
 deactivate Gui
 @enduml
