@@ -1,0 +1,110 @@
+@startuml
+
+' Define participants
+participant GuiHandler as Gui
+participant LoginHandler as Login
+participant GuiStateMachine as GuiState
+participant DataHandler as Data
+participant LogHandler as Log
+participant TableStateMachine as Table
+participant DbSettings as Settings
+
+' Define interactions and conditions
+Gui -> Login : Change password
+activate Gui
+Login -> Login : Validation
+alt failed auth
+    Login --> Gui : Return error msg
+
+else successful auth
+    Login -> Data : Update password
+
+end
+Data -> Data : Update db
+alt failed
+    Data --> Login : Return error msg
+
+else succes
+    Data -> Login : Return success
+
+end
+Login --> Gui : Return succes / error msg
+deactivate Gui
+
+Gui -> Login : Login
+activate Gui
+activate Login
+Login -> Login : Validation
+
+alt failed auth
+    Login --> Gui : Return error msg
+    deactivate Gui
+else successful auth
+    Login -> GuiState : Change gui state to dashboard
+    activate GuiState
+    activate Gui
+    deactivate Login
+end
+
+
+
+Gui -> GuiState : Change displayed data
+
+GuiState -> Data : Get table data and log data from DB \n Get DB ip from local JSON
+activate Data
+
+Data -> Data : Retrieve data
+alt failed
+    Data -> GuiState : Return error msg
+
+else successful
+    
+
+    Data --> GuiState : Return data
+    GuiState -> Log : Update log
+    activate Log
+
+    GuiState -> Table : Update table
+    activate Table
+
+    GuiState -> Settings : Update Settings
+    deactivate GuiState
+    activate Settings
+end
+deactivate Data
+
+
+Log --> Gui : Update Log GUI
+deactivate Log
+
+
+Table --> Gui : Update Table GUI
+deactivate Table
+
+
+
+
+
+Settings --> Gui : Update DB Settings GUI
+deactivate Settings
+deactivate Gui
+
+Gui -> Data : Update DB settings
+activate Gui
+activate Data
+
+Data -> Data: Update DB settings JSON
+
+alt failed
+    Data -> GuiState : Return error msg
+    
+else successful
+    Data -> GuiState : Return success msg
+    deactivate Data
+    GuiState -> Settings : Update DB settings
+    activate Settings
+end
+Settings --> Gui : Update DB Settings GUI
+deactivate settings
+deactivate Gui
+@enduml
