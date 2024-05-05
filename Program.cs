@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HttpListenerExample
@@ -73,7 +72,7 @@ namespace HttpListenerExample
                         {
                             Console.WriteLine("Just got a click");
                             Console.WriteLine("body data");
-                            Console.WriteLine(GetRequestPostData(req));
+                            Console.WriteLine(await GetRequestPostData(req));
                         }
                         else if (req.HttpMethod == "GET" && req.Url.AbsolutePath == "/get_data")
                         {
@@ -101,7 +100,7 @@ namespace HttpListenerExample
             }
         }
 
-        static string? GetRequestPostData(HttpListenerRequest request)
+        static async Task<string> GetRequestPostData(HttpListenerRequest request)
         {
             if (!request.HasEntityBody)
             {
@@ -111,7 +110,7 @@ namespace HttpListenerExample
             {
                 using (var reader = new System.IO.StreamReader(body, request.ContentEncoding))
                 {
-                    return reader.ReadToEnd();
+                    return await reader.ReadToEndAsync();
                 }
             }
         }
@@ -142,52 +141,12 @@ namespace HttpListenerExample
 
         static bool ValidateCredentials(string requestBody)
         {
+            // Your validation logic for username and password here
+            // For example:
             // Extract username and password from request body
-            string[] keyValuePairs = requestBody.Split('&');
-            string username = "";
-            string password = "";
-
-            foreach (var pair in keyValuePairs)
-            {
-                string[] keyValue = pair.Split('=');
-                if (keyValue.Length == 2)
-                {
-                    string key = keyValue[0];
-                    string value = keyValue[1];
-                    if (key == "username")
-                        username = value;
-                    else if (key == "password")
-                        password = value;
-                }
-            }
-
-            // Validate username (email) format
-            if (!IsValidEmail(username))
-                return false;
-
-            // Validate password format (minimum 8 characters with letters, numbers, and special characters)
-            if (!IsValidPassword(password))
-                return false;
-
-            // Simulated authentication logic (replace with actual authentication logic)
-            if (username == "example@example.com" && password == "Password1!")
-                return true;
-            else
-                return false;
-        }
-
-        static bool IsValidEmail(string email)
-        {
-            // Simple email validation using regex (replace with more robust validation if needed)
-            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            Regex regex = new Regex(pattern);
-            return regex.IsMatch(email);
-        }
-
-        static bool IsValidPassword(string password)
-        {
-            // Password validation (minimum 8 characters with letters, numbers, and special characters)
-            return Regex.IsMatch(password, @"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+            // Validate them against your criteria
+            // Return true if valid, false otherwise
+            return true; // Temporary, replace with actual validation logic
         }
 
         static void Main(string[] args)
