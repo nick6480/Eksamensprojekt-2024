@@ -58,15 +58,7 @@ function hideAllContentSections() {
     document.getElementById("courseDetailContent").style.display = "none";
     document.getElementById("Studentcontent").style.display = "none";
 }
-// Function to send message to students
-function sendMessage(event) {
-    event.preventDefault(); // Prevent form submission
-    var message = document.getElementById("messageInput").value;
-    
-    
-    alert("Message sent to students: " ); // For demonstration, show an alert with the message
-    document.getElementById("messageForm").reset(); // Clear the message input field
-}
+
 // Function to check personal information
 function checkPersonalInfo() {
     // You can implement the logic to retrieve and display personal information here
