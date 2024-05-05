@@ -1,16 +1,17 @@
 using System;
-using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace HttpListenerExample
 {
     class SQLCommunication
     {
-        public static async Task<byte[]> GetDataFromSQLServer(string query)
+        public static async Task<byte[]> GetDataFromSQLServer()
         {
-            // Implement logic to connect to MS SQL Server and execute the provided query
-            string connectionString = "Data Source=myServerAddress;Initial Catalog=myDataBase;User Id=myUsername;Password=myPassword;";
+            // Implement logic to connect to MS SQL Server and fetch data from views
+            string connectionString = "Data Source=myServerAddress;Initial Catalog=myDataBase;User ID=myUsername;Password=myPassword;";
+            string query = "SELECT * FROM myView";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
