@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -10,6 +11,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System;
+using System.Collections.Generic;
+
+
+
+
+using enterprise.login;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace enterprise
 {
@@ -18,9 +28,12 @@ namespace enterprise
     /// </summary>
     public partial class MainWindow : Window
     {
+        LoginHandler Login = new LoginHandler();
+
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
 
@@ -55,6 +68,7 @@ namespace enterprise
 
         private void create_user_btn_Click(object sender, RoutedEventArgs e)
         {
+            overlay_grid.Visibility = Visibility.Visible;
 
         }
 
@@ -82,78 +96,41 @@ namespace enterprise
         {
 
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void close_overlay_btn_Click(object sender, RoutedEventArgs e)
+        {
+            overlay_grid.Visibility = Visibility.Collapsed;
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void save_new_user_Click(object sender, RoutedEventArgs e)
+        {
+            string email = new_user_email.Text;
+            string password = new_user_password.Text;
+
+            List<string> errorMsg = Login.validation(email, password);
+
+            new_user_login_error.Content = System.String.Join(Environment.NewLine, errorMsg);
+
+            if (!errorMsg.Any()) // If no errors
+            {
+
+            }
+
+        }
     }
 }
 
 
 
-
-public class LoginHandler
-{
-    // Method to authenticate a user
-    public List<string> validation(string username, string password)
-    {
-        List<string> error_msg = new List<string>();
-
-
-        if (string.IsNullOrWhiteSpace(username)) // Username must not be empty
-        {
-            error_msg.Add("Username cannot be empty");
-        }
-        if (password.Length < 8) // Password must be at least  8 characters
-        {
-            //error_msg.Add("Password must be at least  8 characters");
-        }
-        if (!Regex.IsMatch(password, @"[a-zA-Z]")) // Password must include at least 1 letter
-        {
-            //error_msg.Add("Password must contain at least one letter");
-        }
-        if (!Regex.IsMatch(password, @"\d")) // Password must include at least 1 letter 
-        {
-            //error_msg.Add("Password must contain at least one digit"); 
-        }
-           
-
-
-        return error_msg;
-    }
-
-    public bool login(string username, string password)
-    {
-        if (DEBUG_CHECK_IF_USER_EXISTS(username, password))
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
-            
-    }
-
-
-    // Method to log out a user
-    public void logout()
-    {
-        
-    }
-
-    // Method to check if a user is already logged in
-    public bool isLoggedIn()
-    {
-        return false;
-    }
-
-    public bool DEBUG_CHECK_IF_USER_EXISTS(string username, string password)
-    {
-        if (username == "John" && password == "1234abcd")
-        {
-            return true;
-        }
-        else { 
-            return false;
-        }
-    }
-
-
-
-}
+// wpf tool kit
+// https://github.com/xceedsoftware/wpftoolkit/wiki 

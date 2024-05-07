@@ -18,3 +18,24 @@ E:\Code\enterprise\enterprise\obj\Debug\net8.0-windows\refint\enterprise.dll
 E:\Code\enterprise\enterprise\obj\Debug\net8.0-windows\enterprise.pdb
 E:\Code\enterprise\enterprise\obj\Debug\net8.0-windows\enterprise.genruntimeconfig.cache
 E:\Code\enterprise\enterprise\obj\Debug\net8.0-windows\ref\enterprise.dll
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\bin\Debug\net8.0-windows\enterprise.exe
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\bin\Debug\net8.0-windows\enterprise.deps.json
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\bin\Debug\net8.0-windows\enterprise.runtimeconfig.json
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\bin\Debug\net8.0-windows\enterprise.dll
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\bin\Debug\net8.0-windows\enterprise.pdb
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\App.g.cs
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise_MarkupCompile.cache
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise_MarkupCompile.lref
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\MainWindow.baml
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.g.resources
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.GeneratedMSBuildEditorConfig.editorconfig
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.AssemblyInfoInputs.cache
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.AssemblyInfo.cs
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.csproj.CoreCompileInputs.cache
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.sourcelink.json
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.dll
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\refint\enterprise.dll
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.pdb
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\enterprise.genruntimeconfig.cache
+C:\It-arkitekt\Semester 2\Eksammensprojekt\Eksamensprojekt-2024\enterprise\obj\Debug\net8.0-windows\ref\enterprise.dll
