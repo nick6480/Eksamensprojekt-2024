@@ -139,7 +139,13 @@ namespace HttpListenerExample
             }
         }
 
-       
+        static bool ValidateCredentials(string requestBody)
+        {
+         return true;
+        }
+
+
+
         static void Main(string[] args)
         {
             // Create a Http server and start listening for incoming connections
@@ -157,4 +163,3 @@ namespace HttpListenerExample
         }
     }
 }
-
