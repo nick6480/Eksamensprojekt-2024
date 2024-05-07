@@ -68,7 +68,7 @@ namespace HttpListenerExample
                     else
                     {
                         // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
-                        if (req.HttpMethod == "POST" && req.Url.AbsolutePath == "/localhost_biler")
+                        if (req.HttpMethod == "POST" && req.Url.AbsolutePath == "/localhost")
                         {
                             Console.WriteLine("Just got a click");
                             Console.WriteLine("body data");
@@ -139,16 +139,7 @@ namespace HttpListenerExample
             }
         }
 
-        static bool ValidateCredentials(string requestBody)
-        {
-            // Your validation logic for username and password here
-            // For example:
-            // Extract username and password from request body
-            // Validate them against your criteria
-            // Return true if valid, false otherwise
-            return true; // Temporary, replace with actual validation logic
-        }
-
+       
         static void Main(string[] args)
         {
             // Create a Http server and start listening for incoming connections
@@ -166,3 +157,4 @@ namespace HttpListenerExample
         }
     }
 }
+
