@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dxAxKV2XP3O5BmXpSC1DRIkeISDkVQkyJ4tVDWuSLjpegxRA8alH7zAtbw7q03E6Q5BURv/DwEd13DfnkxOAgw==",
+  "dgSpecHash": "5Ount1HPyf3gwO4IVTT8tw2hICFnGnJTCS8LN1rMC3UM7TWW9OSWKeY3upWRIFhBss08JlMHsjhbEojqHruDrg==",
   "success": true,
   "projectFilePath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\nicko\\.nuget\\packages\\extended.wpf.toolkit\\4.6.0\\extended.wpf.toolkit.4.6.0.nupkg.sha512"
+  ],
   "logs": []
 }

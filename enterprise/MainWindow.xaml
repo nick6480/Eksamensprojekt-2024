@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="login_grid" Grid.ColumnSpan="2">
             <Label HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,217,0,0">
-                <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36"/>
+                 <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36"/>
             </Label>
             <TextBox x:Name="username_login" TextWrapping="Wrap" Margin="545,313,545,343" Width="169.6" Opacity="0.995" AutomationProperties.HelpText="fggf"/>
             <TextBox x:Name="password_login" TextWrapping="Wrap" Text="TextBox" Margin="545,337,545,319" Width="169.6"/>
@@ -23,7 +23,7 @@
         <Grid x:Name="dashboard_grid" Grid.ColumnSpan="2" Width="1280" Height="720" Margin="-10,-9,-10,-27">
             <Button x:Name="students_btn" Content="Students" HorizontalAlignment="Left" Margin="-1,37,0,0" VerticalAlignment="Top" Click="login_btn_Click" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
             <Button x:Name="teachers_btn" Content="Teachers" HorizontalAlignment="Left" Margin="-1,62,0,0" VerticalAlignment="Top" Click="login_btn_Click" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
-            <DataGrid x:Name="dataTable" HorizontalAlignment="Left" Height="407" Margin="138,38,0,0" VerticalAlignment="Top" Width="796" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="DataGrid_SelectionChanged"/>
+            <DataGrid x:Name="dataTable" HorizontalAlignment="Left" Height="407" Margin="138,38,0,0" VerticalAlignment="Top" Width="796" d:ItemsSource="{d:SampleData ItemCount=5}"/>
             <Grid x:Name="log_grid" HorizontalAlignment="Left" Height="710" Margin="956,-1,0,0" VerticalAlignment="Top" Width="324" Background="#FF202020"/>
             <Button x:Name="courses_btn" Content="Courses" HorizontalAlignment="Left" Margin="-1,87,0,0" VerticalAlignment="Top" Click="login_btn_Click" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
             <Grid HorizontalAlignment="Left" Height="206" Margin="138,457,0,0" VerticalAlignment="Top" Width="343">
@@ -38,25 +38,25 @@
                     <ColumnDefinition Width="151*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Database Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <CheckBox Content="Enable editing" HorizontalAlignment="Left" Margin="162,20,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="CheckBox_Checked"/>
-                <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="20" Margin="17,46,0,0" TextWrapping="Wrap" Text="NICK/SQLEXPRESS" VerticalAlignment="Top" Width="409" TextChanged="TextBox_TextChanged"/>
-                <ComboBox HorizontalAlignment="Left" Margin="17,76,0,0" VerticalAlignment="Top" Width="173" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
+                <CheckBox Content="Enable editing" HorizontalAlignment="Left" Margin="162,20,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="20" Margin="17,46,0,0" TextWrapping="Wrap" Text="NICK/SQLEXPRESS" VerticalAlignment="Top" Width="409"/>
+                <ComboBox HorizontalAlignment="Left" Margin="17,76,0,0" VerticalAlignment="Top" Width="173" SelectedIndex="0">
                     <ComboBoxItem Content="SQL Login"/>
                     <ComboBoxItem Content="Windows Authentication"/>
                 </ComboBox>
                 <TextBox HorizontalAlignment="Left" Margin="18,116,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="172"/>
                 <TextBox HorizontalAlignment="Left" Margin="18,139,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="172"/>
             </Grid>
-            <Grid x:Name="overlay_grid" HorizontalAlignment="Center" Height="721" VerticalAlignment="Center" Width="1280" Background="#CC000000">
+            <Grid x:Name="overlay_grid" HorizontalAlignment="Center" Height="721" VerticalAlignment="Center" Width="1280" Background="#CC000000" d:IsHidden="True">
                 <Grid x:Name="overlay_content_grid" HorizontalAlignment="Center" Height="427" VerticalAlignment="Center" Width="544" Background="White">
                     <Grid x:Name="create_user_grid" HorizontalAlignment="Center" Height="311" VerticalAlignment="Top" Width="524" Margin="0,10,0,0">
                         <Label Content="New User" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
                         <Button x:Name="close_overlay_btn" HorizontalAlignment="Left" Margin="464,10,0,0" VerticalAlignment="Top" Height="43" Width="46" Content="X" Click="close_overlay_btn_Click"/>
-                        <TextBox x:Name="new_user_name" HorizontalAlignment="Left" Margin="17,75,0,0" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Width="233" Height="19" TextChanged="new_user_name_TextChanged"/>
-                        <TextBox x:Name="new_user_name_Copy" HorizontalAlignment="Left" Margin="17,99,0,0" TextWrapping="Wrap" Text="Surname" VerticalAlignment="Top" Width="233" Height="19" TextChanged="new_user_name_Copy_TextChanged"/>
-                        <TextBox x:Name="new_user_email" HorizontalAlignment="Left" Margin="18,166,0,0" TextWrapping="Wrap" Text="E-mail" VerticalAlignment="Top" Width="233" Height="19" TextChanged="new_user_name_TextChanged"/>
-                        <TextBox x:Name="new_user_password" HorizontalAlignment="Left" Margin="18,191,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="233" Height="19" TextChanged="new_user_name_Copy_TextChanged"/>
-                        <TextBox x:Name="new_user_name_Copy3" HorizontalAlignment="Left" Margin="17,123,0,0" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top" Width="233" Height="19" TextChanged="new_user_name_Copy_TextChanged"/>
+                        <TextBox x:Name="new_user_name" HorizontalAlignment="Left" Margin="17,75,0,0" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <TextBox x:Name="new_user_name_Copy" HorizontalAlignment="Left" Margin="17,99,0,0" TextWrapping="Wrap" Text="Surname" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <TextBox x:Name="new_user_email" HorizontalAlignment="Left" Margin="18,166,0,0" TextWrapping="Wrap" Text="E-mail" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <TextBox x:Name="new_user_password" HorizontalAlignment="Left" Margin="18,191,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <TextBox x:Name="new_user_phone" HorizontalAlignment="Left" Margin="17,123,0,0" TextWrapping="Wrap" Text="Phone" VerticalAlignment="Top" Width="233" Height="19"/>
                     </Grid>
                     <ComboBox HorizontalAlignment="Left" Margin="289,83,0,0" VerticalAlignment="Top" Width="120" Height="21" DisplayMemberPath="" SelectedIndex="0">
                         <ComboBoxItem Content="Student"/>

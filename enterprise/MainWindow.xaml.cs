@@ -36,7 +36,7 @@ namespace enterprise
             
         }
 
-
+        // ---- LOGIN ----
         private void login_btn_Click(object sender, RoutedEventArgs e) {
             string username;
             string password;
@@ -61,55 +61,16 @@ namespace enterprise
 
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+        //---- Table ----
         private void create_user_btn_Click(object sender, RoutedEventArgs e)
         {
             overlay_grid.Visibility = Visibility.Visible;
 
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void new_user_name_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void new_user_name_Copy_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void close_overlay_btn_Click(object sender, RoutedEventArgs e)
         {
             overlay_grid.Visibility = Visibility.Collapsed;
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
 
         private void save_new_user_Click(object sender, RoutedEventArgs e)
@@ -127,6 +88,7 @@ namespace enterprise
             }
 
         }
+
     }
 }
 
