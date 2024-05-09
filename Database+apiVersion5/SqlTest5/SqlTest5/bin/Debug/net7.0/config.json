@@ -1,0 +1,7 @@
+{
+  "DataSource": "localhost",
+  "UserID": "sa",
+  "Password": "dockerStrongPwd123",
+  "InitialCatalog": "test22"
+ 
+}
