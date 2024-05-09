@@ -4,13 +4,17 @@ Her listes de spørgsmål vi måtte have. De undersøges, studeres, læses, Goog
 2. Koncept evaluering, vi har jo ikke tid til at sætte en anden arkitektur op 
 for at se direkte fordele. Hvilken kriterie kan vi evt vælge ud over kravene, samt vores s
 succes kriterie ? Vi har ingen alternativ.....
+  evaluering over design: 
 3. Teknologi beskrivelse: Helt lav praktisk, så er det omkring webserveren(HTML/CSS JS, 
 REST API), MS SQL, UI (windows teknologi)
 ...er det også omkring hvad vi bruger til log og kryptering ??
+
 3. I Prototype afsnit: Implementering, , værktøjer , brugergrænseflade, systemudvikling
+  
 4. Diskussion....evaluer disse nævnte punkter??
+  
 5. Simpel login er ikke nødvendigvis en afgrænsning i sikkerhed og kryptering. 
 Sikker login kræver SSL / HTTPS altså certifikat. Vi agter at afgrænse dette og gå 
 med en harshing/kryptering, og en stærk password validering .da tiden løber
 
-
+Stefan ville se på beskrivelsen og tilrette...
