@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj": {}
+    "E:\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj": {}
   },
   "projects": {
-    "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj": {
+    "E:\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj",
+        "projectUniqueName": "E:\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj",
         "projectName": "enterprise",
-        "projectPath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj",
+        "projectPath": "E:\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj",
         "packagesPath": "C:\\Users\\nicko\\.nuget\\packages\\",
-        "outputPath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\enterprise\\obj\\",
+        "outputPath": "E:\\Eksamensprojekt-2024\\enterprise\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\nicko\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -48,6 +52,10 @@
             "Extended.Wpf.Toolkit": {
               "target": "Package",
               "version": "[4.6.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             }
           },
           "imports": [
@@ -69,7 +77,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

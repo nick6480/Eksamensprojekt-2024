@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="login_grid" Grid.ColumnSpan="2">
             <Label HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,217,0,0">
-                 <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36"/>
+                <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36"/>
             </Label>
             <TextBox x:Name="username_login" TextWrapping="Wrap" Margin="545,313,545,343" Width="169.6" Opacity="0.995" AutomationProperties.HelpText="fggf"/>
             <TextBox x:Name="password_login" TextWrapping="Wrap" Text="TextBox" Margin="545,337,545,319" Width="169.6"/>
@@ -21,31 +21,32 @@
             <Label x:Name="login_error_msg" Content="&#xA;" HorizontalAlignment="Center" Margin="0,411,0,0" VerticalAlignment="Top" Foreground="#FFB50000" FontWeight="Bold"/>
         </Grid>
         <Grid x:Name="dashboard_grid" Grid.ColumnSpan="2" Width="1280" Height="720" Margin="-10,-9,-10,-27">
-            <Button x:Name="students_btn" Content="Students" HorizontalAlignment="Left" Margin="-1,37,0,0" VerticalAlignment="Top" Click="login_btn_Click" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
-            <Button x:Name="teachers_btn" Content="Teachers" HorizontalAlignment="Left" Margin="-1,62,0,0" VerticalAlignment="Top" Click="login_btn_Click" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
+            <Button x:Name="students_data_btn" Content="Students" HorizontalAlignment="Left" Margin="-1,37,0,0" VerticalAlignment="Top" Click="data_grid_state" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100" />
+            <Button x:Name="teachers_data_btn" Content="Teachers" HorizontalAlignment="Left" Margin="-1,62,0,0" VerticalAlignment="Top" Click="data_grid_state" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
             <DataGrid x:Name="dataTable" HorizontalAlignment="Left" Height="407" Margin="138,38,0,0" VerticalAlignment="Top" Width="796" d:ItemsSource="{d:SampleData ItemCount=5}"/>
             <Grid x:Name="log_grid" HorizontalAlignment="Left" Height="710" Margin="956,-1,0,0" VerticalAlignment="Top" Width="324" Background="#FF202020"/>
-            <Button x:Name="courses_btn" Content="Courses" HorizontalAlignment="Left" Margin="-1,87,0,0" VerticalAlignment="Top" Click="login_btn_Click" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
+            <Button x:Name="courses_data_btn" Content="Courses" HorizontalAlignment="Left" Margin="-1,87,0,0" VerticalAlignment="Top" Click="data_grid_state" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100"/>
             <Grid HorizontalAlignment="Left" Height="206" Margin="138,457,0,0" VerticalAlignment="Top" Width="343">
                 <Button x:Name="create_user_btn" Content="Create User&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Click="create_user_btn_Click" Height="21" Width="100"/>
                 <Button x:Name="create_user_btn_Copy" Content="Create Course&#xD;&#xA;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Click="create_user_btn_Click" Height="21" Margin="0,26,0,0" Width="100"/>
                 <Button x:Name="create_user_btn_Copy1" Content="Create Room&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" Click="create_user_btn_Click" Height="21" Margin="0,52,0,0" Width="100"/>
                 <Button x:Name="create_user_btn_Copy2" Content="Delete Selected" HorizontalAlignment="Left" VerticalAlignment="Top" Click="create_user_btn_Click" Height="21" Margin="0,112,0,0" Width="100"/>
             </Grid>
-            <Grid x:Name="db_settings_grid" HorizontalAlignment="Left" Height="231" Margin="486,457,0,0" VerticalAlignment="Top" Width="448" Background="#FFEBEBEB">
+            <Grid x:Name="db_settings_grid" HorizontalAlignment="Left" Height="231" Margin="659,457,0,0" VerticalAlignment="Top" Width="275" Background="#FFEBEBEB">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="144*"/>
                     <ColumnDefinition Width="151*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="Database Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16"/>
-                <CheckBox Content="Enable editing" HorizontalAlignment="Left" Margin="162,20,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="20" Margin="17,46,0,0" TextWrapping="Wrap" Text="NICK/SQLEXPRESS" VerticalAlignment="Top" Width="409"/>
-                <ComboBox HorizontalAlignment="Left" Margin="17,76,0,0" VerticalAlignment="Top" Width="173" SelectedIndex="0">
+                <Label Content="Database Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" Grid.ColumnSpan="2" Width="154"/>
+                <CheckBox x:Name="enable_db_settings_checkbox" Content="Enable editing" HorizontalAlignment="Left" Margin="35,20,0,0" VerticalAlignment="Top" Checked="enableDbSettings" Unchecked="disableDbSettings" Grid.Column="1"/>
+                <TextBox x:Name="db_server_ip_textbox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="20" Margin="10,46,0,0" TextWrapping="Wrap" Text="NICK/SQLEXPRESS" VerticalAlignment="Top" Width="255" IsReadOnly = "True" Foreground="Gray"/>
+                <ComboBox x:Name="db_auth_method_selector" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Width="255" SelectedIndex="0" DropDownOpened="checkIfDropdownAllowed" DropDownClosed="updateSelection" Foreground="Gray" Grid.ColumnSpan="2">
                     <ComboBoxItem Content="SQL Login"/>
                     <ComboBoxItem Content="Windows Authentication"/>
                 </ComboBox>
-                <TextBox HorizontalAlignment="Left" Margin="18,116,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="172"/>
-                <TextBox HorizontalAlignment="Left" Margin="18,139,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="172"/>
+                <TextBox x:Name="sql_username_textbox" HorizontalAlignment="Left" Margin="10,112,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="255" Foreground="Gray" Grid.ColumnSpan="2" IsReadOnly = "True"/>
+                <Button x:Name="save_db_settings_btn" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Height="23" Margin="59,198,0,0" VerticalAlignment="Top" Width="72" Background="#FF2C9C1D" Foreground="White" BorderBrush="#FF2C9C1D" Click="save_db_settings_btn_Click" Visibility="Collapsed"/>
+                <PasswordBox x:Name="sql_username_passwordbox" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="255" Grid.ColumnSpan="2" Password="Password" Foreground="Gray" Focusable ="False" IsHitTestVisible="False"/>
             </Grid>
             <Grid x:Name="overlay_grid" HorizontalAlignment="Center" Height="721" VerticalAlignment="Center" Width="1280" Background="#CC000000" d:IsHidden="True">
                 <Grid x:Name="overlay_content_grid" HorizontalAlignment="Center" Height="427" VerticalAlignment="Center" Width="544" Background="White">
