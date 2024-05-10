@@ -1,8 +1,4 @@
-using System;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace HttpListenerExample
 {
@@ -10,9 +6,9 @@ namespace HttpListenerExample
     {
         public static HttpListener listener = null;
         public static string url = "http://localhost:8000/";
-        public static int pageViews = 0;
         public static int requestCount = 0;
-        public static string logFilePath = "request_logs.json"; // Sti til JSON-logfil
+        public static string logFilePath = "request_logs.json"; // Path to JSON log file
+        public static string htmlFilePath = "httpserver/login.html"; // Stien til din HTML-fil
 
         static async Task HandleIncomingConnections()
         {
@@ -41,60 +37,31 @@ namespace HttpListenerExample
                     // Log request to JSON file
                     LogRequest(req);
 
-                    // If login request, validate credentials
-                    if (req.Url.AbsolutePath == "/login" && req.HttpMethod == "POST")
+                    // Serve requested file or handle login request
+                    if (req.HttpMethod == "GET")
                     {
-                        string requestBody = await GetRequestPostData(req);
-                        if (ValidateCredentials(requestBody))
+                        string filename = req.Url.AbsolutePath.Substring(1); // Remove leading '/'
+                        if (filename == "")
                         {
-                            // Send success response
-                            byte[] data = Encoding.UTF8.GetBytes("Login successful");
-                            resp.ContentType = "text/plain";
-                            resp.ContentEncoding = Encoding.UTF8;
-                            resp.ContentLength64 = data.LongLength;
-                            await resp.OutputStream.WriteAsync(data, 0, data.Length);
+                            // Serve the HTML file if the root URL is requested
+                            ServeFile(htmlFilePath, resp);
                         }
                         else
                         {
-                            // Send failure response
-                            byte[] data = Encoding.UTF8.GetBytes("Login failed. Invalid credentials.");
-                            resp.ContentType = "text/plain";
-                            resp.ContentEncoding = Encoding.UTF8;
-                            resp.ContentLength64 = data.LongLength;
-                            await resp.OutputStream.WriteAsync(data, 0, data.Length);
+                            ServeFile(filename, resp);
                         }
-                        resp.Close();
                     }
-                    else
+                    else if (req.HttpMethod == "POST" && req.Url.AbsolutePath == "/login")
                     {
-                        // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
-                        if (req.HttpMethod == "POST" && req.Url.AbsolutePath == "/localhost")
-                        {
-                            Console.WriteLine("Just got a click");
-                            Console.WriteLine("body data");
-                            Console.WriteLine(await GetRequestPostData(req));
-                        }
-                        else if (req.HttpMethod == "GET" && req.Url.AbsolutePath == "/get_data")
-                        {
-                            Console.WriteLine("Just got a click to get data");
-                            // Handle GET request for data from SQL Server
-                            byte[] responseData = await SQLCommunication.GetDataFromSQLServer();
-                            await WriteResponse(resp, responseData);
-                        }
+                        // Handle login request
+                        string postData = await GetRequestPostData(req);
+                        byte[] responseData = await HandleLogin(postData);
 
-                        // Make sure we don't increment the page views counter if `favicon.ico` is requested
-                        if (req.Url.AbsolutePath != "/favicon.ico")
-                            pageViews += 1;
-
-                        // Write the response info
-                        byte[] data = Encoding.UTF8.GetBytes("Request handled");
-                        resp.ContentType = "text/plain";
-                        resp.ContentEncoding = Encoding.UTF8;
-                        resp.ContentLength64 = data.LongLength;
-
-                        // Write out to the response stream (asynchronously), then close it
-                        await resp.OutputStream.WriteAsync(data, 0, data.Length);
-                        resp.Close();
+                        // Send response back to client
+                        resp.ContentType = "application/json";
+                        resp.ContentLength64 = responseData.Length;
+                        resp.OutputStream.Write(responseData, 0, responseData.Length);
+                        resp.OutputStream.Close();
                     }
                 }
             }
@@ -106,22 +73,66 @@ namespace HttpListenerExample
             {
                 return null;
             }
-            using (System.IO.Stream body = request.InputStream) // here we have data
+            using (Stream body = request.InputStream) // here we have data
             {
-                using (var reader = new System.IO.StreamReader(body, request.ContentEncoding))
+                using (var reader = new StreamReader(body, request.ContentEncoding))
                 {
                     return await reader.ReadToEndAsync();
                 }
             }
         }
 
-        static async Task WriteResponse(HttpListenerResponse resp, byte[] data)
+        static async Task<byte[]> HandleLogin(string postData)
         {
-            resp.ContentType = "application/json";
-            resp.ContentEncoding = Encoding.UTF8;
-            resp.ContentLength64 = data.LongLength;
-            await resp.OutputStream.WriteAsync(data, 0, data.Length);
-            resp.Close();
+            // Your existing login handling logic here...
+            return null;
+        }
+
+        static void ServeFile(string filename, HttpListenerResponse resp)
+        {
+            try
+            {
+                string filePath = Path.Combine(Environment.CurrentDirectory, filename);
+
+                // Check if the file exists
+                if (File.Exists(filePath))
+                {
+                    byte[] fileBytes = File.ReadAllBytes(filePath);
+
+                    // Set the appropriate content type based on the file extension
+                    resp.ContentType = GetContentType(filename);
+                    resp.ContentLength64 = fileBytes.Length;
+                    resp.OutputStream.Write(fileBytes, 0, fileBytes.Length);
+                    resp.OutputStream.Close();
+                }
+                else
+                {
+                    // If the file doesn't exist, send a 404 error
+                    resp.StatusCode = 404;
+                    resp.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error serving file: " + ex.Message);
+                resp.StatusCode = 500;
+                resp.Close();
+            }
+        }
+
+        static string GetContentType(string filename)
+        {
+            switch (Path.GetExtension(filename).ToLowerInvariant())
+            {
+                case ".html":
+                    return "text/html";
+                case ".css":
+                    return "text/css";
+                case ".js":
+                    return "text/javascript";
+                default:
+                    return "application/octet-stream";
+            }
         }
 
         static void LogRequest(HttpListenerRequest request)
@@ -138,13 +149,6 @@ namespace HttpListenerExample
                 Console.WriteLine("Error logging request: " + ex.Message);
             }
         }
-
-        static bool ValidateCredentials(string requestBody)
-        {
-         return true;
-        }
-
-
 
         static void Main(string[] args)
         {
@@ -163,3 +167,4 @@ namespace HttpListenerExample
         }
     }
 }
+
