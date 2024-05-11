@@ -37,5 +37,10 @@ namespace enterprise.database
             // Deserialize the JSON text to a DbSettings object
             return JsonConvert.DeserializeObject<DbSettings>(json);
         }
+
+        public void create()
+        {
+
+        }
     }
 }

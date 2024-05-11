@@ -5,78 +5,62 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace enterprise.login {
+namespace enterprise.login
+{
     internal class LoginHandler
     {
+        private string _currentUser;
+
         // Method to authenticate a user
-        public List<string> validation(string email, string password)
+        public List<string> Validate(string email, string password)
         {
             List<string> error_msg = new List<string>();
 
-
-
-            if (string.IsNullOrWhiteSpace(email)) // Email must not be empty
-            {
-                error_msg.Add("Email må ikke være tom");
-            }
-            if (password.Length < 8) // Password must be at least  8 characters
-            {
-                error_msg.Add("Password skal have minimun 8 karaktere");
-            }
-            if (!Regex.IsMatch(password, @"[a-zA-Z]")) // Password must include at least 1 letter
-            {
-                error_msg.Add("Passworded skal have mindst 1 bogstav");
-            }
-            if (!Regex.IsMatch(password, @"\d")) // Password must include at least 1 digit 
-            {
-                error_msg.Add("Password skal have mindst 1 tal"); 
-            }
-
-
+            // Conditions for valid l
+            if (string.IsNullOrWhiteSpace(email)) { error_msg.Add("Email må ikke være tom"); }
+            if (password.Length < 8) { error_msg.Add("Password skal have minimum 8 karaktere"); }
+            if (!Regex.IsMatch(password, @"[a-zA-Z]")){ error_msg.Add("Passwordet skal have mindst 1 bogstav"); }
+            if (!Regex.IsMatch(password, @"\d")){ error_msg.Add("Password skal have mindst 1 tal"); }
 
             return error_msg;
         }
 
-        public bool login(string username, string password)
+        // Method to perform login
+        public bool Login(string username, string password)
         {
             if (DEBUG_CHECK_IF_USER_EXISTS(username, password))
             {
+                _currentUser = username; // Set the current user
                 return true;
             }
             else
             {
                 return false;
             }
-
         }
 
-
         // Method to log out a user
-        public void logout()
+        public void Logout()
         {
-
+            _currentUser = null; // Clear the current user
         }
 
         // Method to check if a user is already logged in
-        public bool isLoggedIn()
+        public bool IsLoggedIn()
         {
-            return false;
+            return _currentUser != null;
         }
 
-        public bool DEBUG_CHECK_IF_USER_EXISTS(string username, string password)
+        // Method to get the username of the logged-in user
+        public string GetLoggedInUser()
         {
-            if (username == "John" && password == "1234abcd")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return _currentUser;
         }
 
-
-
+        // Debugging method to simulate user existence check
+        private bool DEBUG_CHECK_IF_USER_EXISTS(string username, string password)
+        {
+            return username == "John" && password == "1234abcd";
+        }
     }
-
 }
