@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using HttpListenerExample;
 
-
 namespace HttpListenerExample
 {
+    // Class responsible for communication with SQL Server
     class SQLCommunication
     {
+        // Method to asynchronously retrieve data from SQL Server
         public static async Task<byte[]> GetDataFromSQLServer()
         {
-            // Opret forbindelse til databasen
+            // Establish connection to the database
             string connectionString = "Data Source=myServerAddress;Initial Catalog=dbo;User ID=sa;Password=dockerStrongPwd123;";
-
 
             try
             {
@@ -21,7 +21,7 @@ namespace HttpListenerExample
                 {
                     await connection.OpenAsync();
 
-                    // Forespørgsel til dbo.Person
+                    // Query to dbo.Person table
                     string personQuery = "SELECT * FROM dbo.Person";
                     StringBuilder personData = new StringBuilder();
                     using (SqlCommand personCommand = new SqlCommand(personQuery, connection))
@@ -30,12 +30,12 @@ namespace HttpListenerExample
                         {
                             while (personReader.Read())
                             {
-                                personData.Append($"PersonId: {personReader["PersonId"]}, Fornavn: {personReader["Fornavn"]}, Mellemnavn: {personReader["Mellemnavn"]}, Efternavn: {personReader["Efternavn"]}\n");
+                                personData.Append($"PersonId: {personReader["PersonId"]}, Firstname: {personReader["Firstname"]}, Middlename: {personReader["Middlename"]}, Lastname: {personReader["Lastname"]}\n");
                             }
                         }
                     }
 
-                    // Forespørgsel til dbo.Login
+                    // Query to dbo.Login table
                     string loginQuery = "SELECT * FROM dbo.Login";
                     StringBuilder loginData = new StringBuilder();
                     using (SqlCommand loginCommand = new SqlCommand(loginQuery, connection))
@@ -44,12 +44,12 @@ namespace HttpListenerExample
                         {
                             while (loginReader.Read())
                             {
-                                loginData.Append($"Brugernavn: {loginReader["Brugernavn"]}, PasswordHash: {loginReader["PasswordHash"]}\n");
+                                loginData.Append($"Username: {loginReader["Username"]}, PasswordHash: {loginReader["PasswordHash"]}\n");
                             }
                         }
                     }
 
-                    // Forespørgsel til dbo.Mail
+                    // Query to dbo.Mail table
                     string mailQuery = "SELECT * FROM dbo.Mail";
                     StringBuilder mailData = new StringBuilder();
                     using (SqlCommand mailCommand = new SqlCommand(mailQuery, connection))
@@ -58,12 +58,12 @@ namespace HttpListenerExample
                         {
                             while (mailReader.Read())
                             {
-                                mailData.Append($"MailAdresseId: {mailReader["MailAdresseId"]}, StudentId: {mailReader["StudentId"]}\n");
+                                mailData.Append($"MailAddressId: {mailReader["MailAddressId"]}, StudentId: {mailReader["StudentId"]}\n");
                             }
                         }
                     }
 
-                    // Forespørgsel til dbo.Student
+                    // Query to dbo.Student table
                     string studentQuery = "SELECT * FROM dbo.Student";
                     StringBuilder studentData = new StringBuilder();
                     using (SqlCommand studentCommand = new SqlCommand(studentQuery, connection))
@@ -77,63 +77,63 @@ namespace HttpListenerExample
                         }
                     }
 
-                    // Forespørgsel til dbo.Underviser
-                    string underviserQuery = "SELECT * FROM dbo.Underviser";
-                    StringBuilder underviserData = new StringBuilder();
-                    using (SqlCommand underviserCommand = new SqlCommand(underviserQuery, connection))
+                    // Query to dbo.Teacher table
+                    string teacherQuery = "SELECT * FROM dbo.Teacher";
+                    StringBuilder teacherData = new StringBuilder();
+                    using (SqlCommand teacherCommand = new SqlCommand(teacherQuery, connection))
                     {
-                        using (SqlDataReader underviserReader = await underviserCommand.ExecuteReaderAsync())
+                        using (SqlDataReader teacherReader = await teacherCommand.ExecuteReaderAsync())
                         {
-                            while (underviserReader.Read())
+                            while (teacherReader.Read())
                             {
-                                underviserData.Append($"UnderviserId: {underviserReader["UnderviserId"]}, PersonId: {underviserReader["PersonId"]}\n");
+                                teacherData.Append($"TeacherId: {teacherReader["TeacherId"]}, PersonId: {teacherReader["PersonId"]}\n");
                             }
                         }
                     }
 
-                    // Forespørgsel til dbo.Ansatte
-                    string ansatteQuery = "SELECT * FROM dbo.Ansatte";
-                    StringBuilder ansatteData = new StringBuilder();
-                    using (SqlCommand ansatteCommand = new SqlCommand(ansatteQuery, connection))
+                    // Query to dbo.Employee table
+                    string employeeQuery = "SELECT * FROM dbo.Employee";
+                    StringBuilder employeeData = new StringBuilder();
+                    using (SqlCommand employeeCommand = new SqlCommand(employeeQuery, connection))
                     {
-                        using (SqlDataReader ansatteReader = await ansatteCommand.ExecuteReaderAsync())
+                        using (SqlDataReader employeeReader = await employeeCommand.ExecuteReaderAsync())
                         {
-                            while (ansatteReader.Read())
+                            while (employeeReader.Read())
                             {
-                                ansatteData.Append($"MedarbejderNr: {ansatteReader["MedarbejderNr"]}, PersonId: {ansatteReader["PersonId"]}\n");
+                                employeeData.Append($"EmployeeNo: {employeeReader["EmployeeNo"]}, PersonId: {employeeReader["PersonId"]}\n");
                             }
                         }
                     }
 
-                    // Forespørgsel til dbo.Lokaler
-                    string lokaleQuery = "SELECT * FROM dbo.Lokaler";
-                    StringBuilder lokaleData = new StringBuilder();
-                    using (SqlCommand lokaleCommand = new SqlCommand(lokaleQuery, connection))
+                    // Query to dbo.Room table
+                    string roomQuery = "SELECT * FROM dbo.Room";
+                    StringBuilder roomData = new StringBuilder();
+                    using (SqlCommand roomCommand = new SqlCommand(roomQuery, connection))
                     {
-                        using (SqlDataReader lokaleReader = await lokaleCommand.ExecuteReaderAsync())
+                        using (SqlDataReader roomReader = await roomCommand.ExecuteReaderAsync())
                         {
-                            while (lokaleReader.Read())
+                            while (roomReader.Read())
                             {
-                                lokaleData.Append($"LokaleId: {lokaleReader["LokaleId"]}, Lokalenum: {lokaleReader["Lokalenum"]}, KursusId: {lokaleReader["KursusId"]}\n");
+                                roomData.Append($"RoomId: {roomReader["RoomId"]}, RoomNo: {roomReader["RoomNo"]}, CourseId: {roomReader["CourseId"]}\n");
                             }
                         }
                     }
 
-                    // Forespørgsel til dbo.Kursus
-                    string kursusQuery = "SELECT * FROM dbo.Kursus";
-                    StringBuilder kursusData = new StringBuilder();
-                    using (SqlCommand kursusCommand = new SqlCommand(kursusQuery, connection))
+                    // Query to dbo.Course table
+                    string courseQuery = "SELECT * FROM dbo.Course";
+                    StringBuilder courseData = new StringBuilder();
+                    using (SqlCommand courseCommand = new SqlCommand(courseQuery, connection))
                     {
-                        using (SqlDataReader kursusReader = await kursusCommand.ExecuteReaderAsync())
+                        using (SqlDataReader courseReader = await courseCommand.ExecuteReaderAsync())
                         {
-                            while (kursusReader.Read())
+                            while (courseReader.Read())
                             {
-                                kursusData.Append($"KursusId: {kursusReader["KursusId"]}, Underviserid: {kursusReader["Underviserid"]}, KursusNavn: {kursusReader["KursusNavn"]}\n");
+                                courseData.Append($"CourseId: {courseReader["CourseId"]}, TeacherId: {courseReader["TeacherId"]}, CourseName: {courseReader["CourseName"]}\n");
                             }
                         }
                     }
 
-                    // Saml data fra alle forespørgsler
+                    // Assemble data from all queries
                     StringBuilder jsonData = new StringBuilder();
                     jsonData.AppendLine("Person data:");
                     jsonData.AppendLine(personData.ToString());
@@ -143,27 +143,28 @@ namespace HttpListenerExample
                     jsonData.AppendLine(mailData.ToString());
                     jsonData.AppendLine("Student data:");
                     jsonData.AppendLine(studentData.ToString());
-                    jsonData.AppendLine("Underviser data:");
-                    jsonData.AppendLine(underviserData.ToString());
-                    jsonData.AppendLine("Ansatte data:");
-                    jsonData.AppendLine(ansatteData.ToString());
-                    jsonData.AppendLine("Lokaler data:");
-                    jsonData.AppendLine(lokaleData.ToString());
-                    jsonData.AppendLine("Kursus data:");
-                    jsonData.AppendLine(kursusData.ToString());
+                    jsonData.AppendLine("Teacher data:");
+                    jsonData.AppendLine(teacherData.ToString());
+                    jsonData.AppendLine("Employee data:");
+                    jsonData.AppendLine(employeeData.ToString());
+                    jsonData.AppendLine("Room data:");
+                    jsonData.AppendLine(roomData.ToString());
+                    jsonData.AppendLine("Course data:");
+                    jsonData.AppendLine(courseData.ToString());
 
-                    // Konverter data til byte array og returner
+                    // Convert data to byte array and return
                     byte[] responseData = Encoding.UTF8.GetBytes(jsonData.ToString());
                     return responseData;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Fejl: {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
                 return null;
             }
         }
     }
 }
+
  
 
