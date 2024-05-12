@@ -45,8 +45,8 @@ Design: Milepæl 3
 19 Mock-up                                Nickolaj
 
 Kode:
-A. Controller - Webserver              Fahad
-B. Model - MS SQL Databasen/adgangen   Allan
+A. Controller - Webserver              Fahad: Opdeling (View (HTML) og Controller (C# delen), gennemgang, test og sammensætning med Webdelen 
+B. Model - MS SQL Databasen/adgangen   Allan: Database konstruktion, Enterprise applikation, sammensat - en Viewdel og Funktiondel
 C. ADM UI -                            Nickolaj
 D. HTML/CSS JS -                       Mohammad
 
