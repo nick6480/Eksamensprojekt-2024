@@ -35,10 +35,10 @@ Design: Milepæl 3   Allan
 
 
 Kode:
-A. Controller - Webserver
-B. Model - MS SQL Databasen/adgangen, behandling af data
-C. ADM UI - 
-D. HTML/CSS JS - 
+A. Controller - Webserver   
+B. Model - MS SQL Databasen
+C. View - ADM UI - 
+D. View - HTML/CSS JS - 
 
 
  
