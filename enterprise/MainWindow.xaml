@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Admin control center" Height="720" Width="1280"
         Icon=".\Resources\gear_icon.ico">
-        
+
     <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="684" Width="1260">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="961*"/>
@@ -36,7 +36,7 @@
 
 
 
-                <DataGrid x:Name="log_datagrid" Margin="10,20,10,-255" Background="#FF1D1D1D" BorderBrush="#FF1D1D1D" Grid.RowSpan="2"/>
+                <DataGrid x:Name="log_datagrid" Margin="10,20,10,0" Background="#FF1D1D1D" BorderBrush="#FF1D1D1D"/>
 
 
             </Grid>

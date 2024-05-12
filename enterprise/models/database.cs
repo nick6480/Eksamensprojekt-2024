@@ -15,7 +15,7 @@ namespace enterprise.database
         public string DbServerIp { get; set; }
         public string AuthType { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; } // Be cautious about storing passwords in plain text.
+        public string Password { get; set; } 
 
         /// <summary>
         /// Serializes the current object to a JSON string and saves it to a file.
@@ -37,10 +37,9 @@ namespace enterprise.database
             // Deserialize the JSON text to a DbSettings object
             return JsonConvert.DeserializeObject<DbSettings>(json);
         }
+    }
+    internal class dataHandler
+    {
 
-        public void create()
-        {
-
-        }
     }
 }
