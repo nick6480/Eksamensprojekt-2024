@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 
 namespace HttpListenerExample
 {
@@ -13,25 +12,25 @@ namespace HttpListenerExample
         public static string url = "http://localhost:8000/";
         public static int requestCount = 0;
         public static string logFilePath = "request_logs.json"; // Path to JSON log file
-        public static string htmlFilePath = "httpserver/login.html"; // Stien til din HTML-fil
+        public static string htmlFilePath = "httpserver/login.html"; // Path to your HTML file
 
+        // Method to handle incoming connections asynchronously
         static async Task HandleIncomingConnections()
         {
             bool runServer = true;
 
-            // While a user hasn't visited the `shutdown` url, keep on handling requests
             while (runServer)
             {
-                // Will wait here until we hear from a connection
                 if (listener != null)
                 {
+                    // Wait for an incoming HTTP request
                     HttpListenerContext ctx = await listener.GetContextAsync();
 
-                    // Peel out the requests and response objects
+                    // Extract request and response objects
                     HttpListenerRequest req = ctx.Request;
                     HttpListenerResponse resp = ctx.Response;
 
-                    // Print out some info about the request
+                    // Log request details
                     Console.WriteLine("Request #: {0}", ++requestCount);
                     Console.WriteLine(req.Url.ToString());
                     Console.WriteLine(req.HttpMethod);
@@ -42,7 +41,7 @@ namespace HttpListenerExample
                     // Log request to JSON file
                     LogRequest(req);
 
-                    // Serve requested file or handle login request
+                    // Serve requested file
                     if (req.HttpMethod == "GET")
                     {
                         string filename = req.Url.AbsolutePath.Substring(1); // Remove leading '/'
@@ -56,22 +55,11 @@ namespace HttpListenerExample
                             ServeFile(filename, resp);
                         }
                     }
-                    else if (req.HttpMethod == "POST" && req.Url.AbsolutePath == "/login")
-                    {
-                        // Handle login request
-                        string postData = await GetRequestPostData(req);
-                        byte[] responseData = await HandleLogin(postData);
-
-                        // Send response back to client
-                        resp.ContentType = "application/json";
-                        resp.ContentLength64 = responseData.Length;
-                        resp.OutputStream.Write(responseData, 0, responseData.Length);
-                        resp.OutputStream.Close();
-                    }
                 }
             }
         }
 
+        // Method to extract POST data from the request
         static async Task<string> GetRequestPostData(HttpListenerRequest request)
         {
             if (!request.HasEntityBody)
@@ -87,24 +75,18 @@ namespace HttpListenerExample
             }
         }
 
-        static async Task<byte[]> HandleLogin(string postData)
-        {
-            // Your existing login handling logic here...
-            return null;
-        }
-
+        // Method to serve requested files
         static void ServeFile(string filename, HttpListenerResponse resp)
         {
             try
             {
                 string filePath = Path.Combine(Environment.CurrentDirectory, filename);
 
-                // Check if the file exists
                 if (File.Exists(filePath))
                 {
                     byte[] fileBytes = File.ReadAllBytes(filePath);
 
-                    // Set the appropriate content type based on the file extension
+                    // Set appropriate content type based on file extension
                     resp.ContentType = GetContentType(filename);
                     resp.ContentLength64 = fileBytes.Length;
                     resp.OutputStream.Write(fileBytes, 0, fileBytes.Length);
@@ -112,7 +94,7 @@ namespace HttpListenerExample
                 }
                 else
                 {
-                    // If the file doesn't exist, send a 404 error
+                    // If file doesn't exist, send a 404 error
                     resp.StatusCode = 404;
                     resp.Close();
                 }
@@ -125,6 +107,7 @@ namespace HttpListenerExample
             }
         }
 
+        // Method to determine content type based on file extension
         static string GetContentType(string filename)
         {
             switch (Path.GetExtension(filename).ToLowerInvariant())
@@ -140,9 +123,9 @@ namespace HttpListenerExample
             }
         }
 
+        // Method to log request details to a JSON file
         static void LogRequest(HttpListenerRequest request)
         {
-            // Log the request details to a JSON file
             string logEntry = $@"{{""Url"": ""{request.Url}"", ""Method"": ""{request.HttpMethod}"", ""UserHostName"": ""{request.UserHostName}"", ""UserAgent"": ""{request.UserAgent}"", ""AbsolutePath"": ""{request.Url.AbsolutePath}""}}";
 
             try
@@ -157,13 +140,13 @@ namespace HttpListenerExample
 
         static void Main(string[] args)
         {
-            // Create a Http server and start listening for incoming connections
+            // Create and start the HTTP server
             listener = new HttpListener();
             listener.Prefixes.Add(url);
             listener.Start();
             Console.WriteLine("Listening for connections on {0}", url);
 
-            // Handle requests
+            // Handle incoming requests
             Task listenTask = HandleIncomingConnections();
             listenTask.GetAwaiter().GetResult();
 
@@ -172,5 +155,3 @@ namespace HttpListenerExample
         }
     }
 }
-
-
