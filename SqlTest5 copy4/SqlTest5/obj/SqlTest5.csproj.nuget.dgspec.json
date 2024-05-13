@@ -1,0 +1,75 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/allanfrank/Projects/Database+apiVersion5/SqlTest5/SqlTest5/SqlTest5.csproj": {}
+  },
+  "projects": {
+    "/Users/allanfrank/Projects/Database+apiVersion5/SqlTest5/SqlTest5/SqlTest5.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/allanfrank/Projects/Database+apiVersion5/SqlTest5/SqlTest5/SqlTest5.csproj",
+        "projectName": "SqlTest5",
+        "projectPath": "/Users/allanfrank/Projects/Database+apiVersion5/SqlTest5/SqlTest5/SqlTest5.csproj",
+        "packagesPath": "/Users/allanfrank/.nuget/packages/",
+        "outputPath": "/Users/allanfrank/Projects/Database+apiVersion5/SqlTest5/SqlTest5/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/allanfrank/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.405/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
