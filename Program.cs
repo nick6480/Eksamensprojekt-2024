@@ -12,7 +12,7 @@ namespace HttpListenerExample
         public static HttpListener listener = null;
         public static string url = "http://localhost:8000/";
         public static int requestCount = 0;
-        public static string htmlFilePath = "httpserver/login.html"; // Path to your HTML file
+        public static string htmlFilePath = Path.Combine(Environment.CurrentDirectory, "httpserver", "login.html");// Path to your HTML file
 
         // Method to validate password
         static bool ValidatePassword(string password)
@@ -177,3 +177,4 @@ namespace HttpListenerExample
         }
     }
 }
+
