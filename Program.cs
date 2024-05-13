@@ -12,7 +12,6 @@ namespace HttpListenerExample
         public static HttpListener listener = null;
         public static string url = "http://localhost:8000/";
         public static int requestCount = 0;
-        public static string logFilePath = "request_logs.json"; // Path to JSON log file
         public static string htmlFilePath = "httpserver/login.html"; // Path to your HTML file
 
         // Method to validate password
@@ -52,9 +51,6 @@ namespace HttpListenerExample
                     Console.WriteLine(req.UserHostName);
                     Console.WriteLine(req.UserAgent);
                     Console.WriteLine(req.Url.AbsolutePath);
-
-                    // Log request to JSON file
-                    LogRequest(req);
 
                     // Serve requested file
                     if (req.HttpMethod == "GET")
@@ -164,21 +160,6 @@ namespace HttpListenerExample
             }
         }
 
-        // Method to log request details to a JSON file
-        static void LogRequest(HttpListenerRequest request)
-        {
-            string logEntry = $@"{{""Url"": ""{request.Url}"", ""Method"": ""{request.HttpMethod}"", ""UserHostName"": ""{request.UserHostName}"", ""UserAgent"": ""{request.UserAgent}"", ""AbsolutePath"": ""{request.Url.AbsolutePath}""}}";
-
-            try
-            {
-                File.AppendAllText(logFilePath, logEntry + Environment.NewLine);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error logging request: " + ex.Message);
-            }
-        }
-
         static void Main(string[] args)
         {
             // Create and start the HTTP server
@@ -196,4 +177,3 @@ namespace HttpListenerExample
         }
     }
 }
-
