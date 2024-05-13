@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace HttpListenerExample
 {
@@ -12,28 +13,34 @@ namespace HttpListenerExample
         public static HttpListener listener = null;
         public static string url = "http://localhost:8000/";
         public static int requestCount = 0;
-        public static string htmlFilePath = Path.Combine(Environment.CurrentDirectory, "httpserver", "login.html");// Path to your HTML file
+        public static string htmlFilePath = Path.Combine(Environment.CurrentDirectory, "httpserver", "login.html");
+        public static string connectionString = "Data Source=localhost;Initial Catalog=dbo;User ID=sa;Password=dockerStrongPwd123;";
 
-        // Method to validate password
-        static bool ValidatePassword(string password)
+        // Method to validate user against the database
+        static bool ValidateUser(string email, string password)
         {
-            // Check for minimum length
-            if (password.Length < 8)
-                return false;
+            string query = "SELECT COUNT(*) FROM dbo.person WHERE email = @Email AND password = @Password";
 
-            // Check for at least one letter, one digit, and one special character
-            if (!Regex.IsMatch(password, @"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"))
-                return false;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Password", password);
 
-            return true;
+                    connection.Open();
+                    int count = (int)command.ExecuteScalar();
+                    connection.Close();
+
+                    return count > 0;
+                }
+            }
         }
 
         // Method to handle incoming connections asynchronously
         static async Task HandleIncomingConnections()
         {
-            bool runServer = true;
-
-            while (runServer)
+            while (true)
             {
                 if (listener != null)
                 {
@@ -55,10 +62,9 @@ namespace HttpListenerExample
                     // Serve requested file
                     if (req.HttpMethod == "GET")
                     {
-                        string filename = req.Url.AbsolutePath.Substring(1); // Remove leading '/'
+                        string filename = req.Url.AbsolutePath.Substring(1);
                         if (filename == "")
                         {
-                            // Serve the HTML file if the root URL is requested
                             ServeFile(htmlFilePath, resp);
                         }
                         else
@@ -69,21 +75,22 @@ namespace HttpListenerExample
                     else if (req.HttpMethod == "POST")
                     {
                         // Handle POST requests
-                        string password = await GetRequestPostData(req);
+                        string email = await GetRequestPostData(req, "email");
+                        string password = await GetRequestPostData(req, "password");
 
-                        // Validate password
-                        if (ValidatePassword(password))
+                        // Validate user
+                        if (ValidateUser(email, password))
                         {
-                            // Password is valid, send success response
-                            byte[] responseBytes = Encoding.UTF8.GetBytes("Password is valid.");
+                            // Send success response
+                            byte[] responseBytes = Encoding.UTF8.GetBytes("Login successful.");
                             resp.ContentType = "text/plain";
                             resp.ContentLength64 = responseBytes.Length;
                             resp.OutputStream.Write(responseBytes, 0, responseBytes.Length);
                         }
                         else
                         {
-                            // Password is invalid, send error response
-                            byte[] responseBytes = Encoding.UTF8.GetBytes("Password does not meet requirements.");
+                            // Send error response
+                            byte[] responseBytes = Encoding.UTF8.GetBytes("Invalid email or password.");
                             resp.ContentType = "text/plain";
                             resp.ContentLength64 = responseBytes.Length;
                             resp.StatusCode = 400; // Bad Request
@@ -97,19 +104,29 @@ namespace HttpListenerExample
         }
 
         // Method to extract POST data from the request
-        static async Task<string> GetRequestPostData(HttpListenerRequest request)
+        static async Task<string> GetRequestPostData(HttpListenerRequest request, string paramName)
         {
             if (!request.HasEntityBody)
             {
                 return null;
             }
-            using (Stream body = request.InputStream) // here we have data
+            using (Stream body = request.InputStream)
             {
                 using (var reader = new StreamReader(body, request.ContentEncoding))
                 {
-                    return await reader.ReadToEndAsync();
+                    string postData = await reader.ReadToEndAsync();
+                    string[] pairs = postData.Split('&');
+                    foreach (string pair in pairs)
+                    {
+                        string[] keyValue = pair.Split('=');
+                        if (keyValue.Length > 1 && keyValue[0] == paramName)
+                        {
+                            return keyValue[1];
+                        }
+                    }
                 }
             }
+            return null;
         }
 
         // Method to serve requested files
@@ -123,7 +140,6 @@ namespace HttpListenerExample
                 {
                     byte[] fileBytes = File.ReadAllBytes(filePath);
 
-                    // Set appropriate content type based on file extension
                     resp.ContentType = GetContentType(filename);
                     resp.ContentLength64 = fileBytes.Length;
                     resp.OutputStream.Write(fileBytes, 0, fileBytes.Length);
@@ -131,7 +147,6 @@ namespace HttpListenerExample
                 }
                 else
                 {
-                    // If file doesn't exist, send a 404 error
                     resp.StatusCode = 404;
                     resp.Close();
                 }
@@ -162,19 +177,17 @@ namespace HttpListenerExample
 
         static void Main(string[] args)
         {
-            // Create and start the HTTP server
             listener = new HttpListener();
             listener.Prefixes.Add(url);
             listener.Start();
             Console.WriteLine("Listening for connections on {0}", url);
 
-            // Handle incoming requests
             Task listenTask = HandleIncomingConnections();
             listenTask.GetAwaiter().GetResult();
 
-            // Close the listener
             listener.Close();
         }
     }
 }
+
 
