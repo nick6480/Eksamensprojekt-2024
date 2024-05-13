@@ -1,0 +1,6 @@
+/Users/allanfrank/Projects/MVC/MVC/obj/Debug/net7.0/MVC.GeneratedMSBuildEditorConfig.editorconfig
+/Users/allanfrank/Projects/MVC/MVC/obj/Debug/net7.0/MVC.AssemblyInfoInputs.cache
+/Users/allanfrank/Projects/MVC/MVC/obj/Debug/net7.0/MVC.AssemblyInfo.cs
+/Users/allanfrank/Projects/MVC/MVC/obj/Debug/net7.0/MVC.csproj.CoreCompileInputs.cache
+/Users/allanfrank/Projects/MVC/MVC/obj/Debug/net7.0/MVC.csproj.AssemblyReference.cache
+/Users/allanfrank/Projects/MVC/MVC/obj/Debug/net7.0/MVC.MvcApplicationPartsAssemblyInfo.cache
