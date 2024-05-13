@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HttpListenerExample
@@ -13,6 +14,20 @@ namespace HttpListenerExample
         public static int requestCount = 0;
         public static string logFilePath = "request_logs.json"; // Path to JSON log file
         public static string htmlFilePath = "httpserver/login.html"; // Path to your HTML file
+
+        // Method to validate password
+        static bool ValidatePassword(string password)
+        {
+            // Check for minimum length
+            if (password.Length < 8)
+                return false;
+
+            // Check for at least one letter, one digit, and one special character
+            if (!Regex.IsMatch(password, @"^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$"))
+                return false;
+
+            return true;
+        }
 
         // Method to handle incoming connections asynchronously
         static async Task HandleIncomingConnections()
@@ -54,6 +69,32 @@ namespace HttpListenerExample
                         {
                             ServeFile(filename, resp);
                         }
+                    }
+                    else if (req.HttpMethod == "POST")
+                    {
+                        // Handle POST requests
+                        string password = await GetRequestPostData(req);
+
+                        // Validate password
+                        if (ValidatePassword(password))
+                        {
+                            // Password is valid, send success response
+                            byte[] responseBytes = Encoding.UTF8.GetBytes("Password is valid.");
+                            resp.ContentType = "text/plain";
+                            resp.ContentLength64 = responseBytes.Length;
+                            resp.OutputStream.Write(responseBytes, 0, responseBytes.Length);
+                        }
+                        else
+                        {
+                            // Password is invalid, send error response
+                            byte[] responseBytes = Encoding.UTF8.GetBytes("Password does not meet requirements.");
+                            resp.ContentType = "text/plain";
+                            resp.ContentLength64 = responseBytes.Length;
+                            resp.StatusCode = 400; // Bad Request
+                            resp.OutputStream.Write(responseBytes, 0, responseBytes.Length);
+                        }
+
+                        resp.OutputStream.Close();
                     }
                 }
             }
@@ -155,3 +196,4 @@ namespace HttpListenerExample
         }
     }
 }
+
