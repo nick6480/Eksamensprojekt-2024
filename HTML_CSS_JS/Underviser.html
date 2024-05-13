@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="Underviser.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" onclick="enrolledStudents()">Show Students</a>
+        <a href="#" onclick="courseDetail()">Show Course Detail</a>
+        <a href="#" onclick="showPersonalInfo()">Show Room Info</a>
+        <a href="#" onclick="checkPersonalInfo()">Check Personal Info</a> 
+        <a href="#" onclick="closeApp()">Close Application</a>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <header>
+            <h1>Welcome <span id="teacherName"></span></h1>
+        </header>
+        <section id="courses">
+            <p id="Studentcontent" style="display:none;"></p>
+        </section>
+        <section id="courseDetail">
+            <p id="courseDetailContent" style="display:none;"></p>
+        </section>
+        <section id="room-info">
+            <p id="roomContent" style="display:none;"></p>
+        </section>
+    </div>
+
+    <script src="underviser.js"></script>
+
+
+</body>
+</html>
