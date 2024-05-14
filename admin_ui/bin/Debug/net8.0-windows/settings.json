@@ -1,0 +1,6 @@
+{
+  "DbServerIp": "NICK\\SQLEXPRESS",
+  "AuthType": "Windows Authentication",
+  "Username": "Username1",
+  "Password": "Password1234"
+}

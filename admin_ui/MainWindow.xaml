@@ -1,0 +1,129 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:admin_ui"
+        xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="admin_ui.MainWindow"
+        mc:Ignorable="d"
+        Title="Admin control center" Height="720" Width="1280"
+        Icon=".\Resources\gear_icon.ico">
+
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Height="684" Width="1260">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="961*"/>
+            <ColumnDefinition Width="300*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="login_grid" Grid.ColumnSpan="2" d:IsHidden="True">
+            <Label HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,217,0,0">
+                <Label Content="Login" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36"/>
+            </Label>
+            <TextBox x:Name="username_login" TextWrapping="Wrap" Margin="545,313,545,343" Width="169.6" Opacity="0.995" AutomationProperties.HelpText="fggf" Text="John"/>
+            <TextBox x:Name="password_login" TextWrapping="Wrap" Text="1234abcd" Margin="545,337,545,319" Width="169.6"/>
+            <Button x:Name="login_btn" Content="Login" HorizontalAlignment="Center" Margin="0,376,0,0" VerticalAlignment="Top" Background="#FF50B6D7" BorderBrush="#00000000" Foreground="White" Width="54" Height="30" Click="login_btn_Click"/>
+            <Label x:Name="login_error_msg" Content="&#xA;" HorizontalAlignment="Center" Margin="0,411,0,0" VerticalAlignment="Top" Foreground="#FFB50000" FontWeight="Bold"/>
+        </Grid>
+        <Grid x:Name="dashboard_grid" Grid.ColumnSpan="2" Width="1280" Height="720" Margin="-10,-9,-10,-27">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="13*"/>
+                <ColumnDefinition Width="621*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="students_data_btn" Content="Students" HorizontalAlignment="Left" Margin="-1,37,0,0" VerticalAlignment="Top" Click="data_grid_state" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100" Grid.ColumnSpan="3" />
+            <Button x:Name="teachers_data_btn" Content="Teachers" HorizontalAlignment="Left" Margin="-1,62,0,0" VerticalAlignment="Top" Click="data_grid_state" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100" Grid.ColumnSpan="3"/>
+            <DataGrid x:Name="dataTable" HorizontalAlignment="Left" Height="407" Margin="100,38,0,0" VerticalAlignment="Top" Width="702" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.Column="2"/>
+            <Grid x:Name="log_grid" HorizontalAlignment="Left" Height="710" Margin="824,-1,0,0" VerticalAlignment="Top" Width="418" Background="#FF202020" Grid.Column="4">
+
+
+
+                <DataGrid x:Name="log_datagrid" Margin="10,20,10,0" Background="#FF1D1D1D" BorderBrush="#FF1D1D1D"/>
+
+
+            </Grid>
+            <Button x:Name="courses_data_btn" Content="Courses" HorizontalAlignment="Left" Margin="-1,87,0,0" VerticalAlignment="Top" Click="data_grid_state" BorderBrush="#00000000" Background="#FF414546" Foreground="White" Width="100" Grid.ColumnSpan="3"/>
+            <Grid HorizontalAlignment="Left" Height="206" Margin="100,457,0,0" VerticalAlignment="Top" Width="343" Grid.Column="2">
+                <Button x:Name="create_student_btn" Content="Opret Studerende" HorizontalAlignment="Left" VerticalAlignment="Top" Click="create_student_btn_Click" Height="21" Width="132"/>
+                <Button x:Name="create_teacher_btn" Content="Opret Underviser" HorizontalAlignment="Left" VerticalAlignment="Top" Click="create_teacher_btn_Click" Height="21" Width="132" Margin="0,26,0,0"/>
+
+                <Button x:Name="create_course_btn" Content="Opret Kursus" HorizontalAlignment="Left" VerticalAlignment="Top" Click="create_course_btn_Click" Height="22" Margin="0,66,0,0" Width="132"/>
+                <Button x:Name="create_room_btn" Content="Opret Lokale" HorizontalAlignment="Left" VerticalAlignment="Center" Click="create_room_btn_Click" Height="22" Width="132"/>
+                <Button x:Name="delete_selected" Content="Slet valgte" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Margin="0,134,0,0" Width="132" IsEnabled="False"/>
+
+            </Grid>
+            <Grid x:Name="db_settings_grid" HorizontalAlignment="Left" Height="231" Margin="527,457,0,0" VerticalAlignment="Top" Width="275" Background="#FFEBEBEB" Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="144*"/>
+                    <ColumnDefinition Width="151*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Database Settings" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="16" Grid.ColumnSpan="2" Width="154"/>
+                <CheckBox x:Name="enable_db_settings_checkbox" Content="Enable editing" HorizontalAlignment="Left" Margin="35,20,0,0" VerticalAlignment="Top" Checked="enableDbSettings" Unchecked="disableDbSettings" Grid.Column="1"/>
+                <TextBox x:Name="db_server_ip_textbox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="20" Margin="10,46,0,0" TextWrapping="Wrap" Text="NICK/SQLEXPRESS" VerticalAlignment="Top" Width="255" IsReadOnly = "True" Foreground="Black" IsEnabled="False"/>
+                <ComboBox x:Name="db_auth_method_selector" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Width="255" SelectedIndex="0" DropDownOpened="checkIfDropdownAllowed" DropDownClosed="updateSelection" Foreground="Black" Grid.ColumnSpan="2" IsEnabled="False">
+                    <ComboBoxItem Content="SQL Login"/>
+                    <ComboBoxItem Content="Windows Authentication"/>
+                </ComboBox>
+                <TextBox x:Name="sql_username_textbox" HorizontalAlignment="Left" Margin="10,112,0,0" TextWrapping="Wrap" Text="Username" VerticalAlignment="Top" Width="255" Foreground="Black" Grid.ColumnSpan="2" IsReadOnly = "True" IsEnabled="False"/>
+                <Button x:Name="save_db_settings_btn" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Height="23" Margin="59,198,0,0" VerticalAlignment="Top" Width="72" Background="#FF2C9C1D" Foreground="White" BorderBrush="#FF2C9C1D" Click="save_db_settings_btn_Click" Visibility="Collapsed"/>
+                <PasswordBox x:Name="sql_username_passwordbox" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="255" Grid.ColumnSpan="2" Password="Password" Foreground="Black" Focusable ="False" IsHitTestVisible="False" IsEnabled="False"/>
+            </Grid>
+            <Grid x:Name="overlay_grid" HorizontalAlignment="Left" Height="720" VerticalAlignment="Center" Width="1280" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Collapsed">
+                <Grid x:Name="overlay_content_grid" HorizontalAlignment="Center" Height="390" VerticalAlignment="Center" Width="544" Background="White">
+                    <Button x:Name="close_overlay_btn" HorizontalAlignment="Left" Margin="488,20,0,0" VerticalAlignment="Top" Height="43" Width="46" Content="X" Click="close_overlay_btn_Click"/>
+
+                    <Grid x:Name="create_student_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" Visibility="Collapsed">
+                        <Label Content="Ny studerende" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
+                        <TextBox x:Name="new_student_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <TextBox x:Name="new_student_surname" HorizontalAlignment="Left" Margin="277,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <TextBox x:Name="new_student_email" HorizontalAlignment="Left" Margin="18,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <PasswordBox x:Name="new_student_password" HorizontalAlignment="Left" Margin="277,186,0,166" Width="232" Height="19"/>
+                        <Label Content="Fornavn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Efternavn" HorizontalAlignment="Left" Margin="272,66,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.158,-0.827"/>
+                        <Label Content="E-mail" HorizontalAlignment="Left" Margin="14,110,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Kursus" HorizontalAlignment="Left" Margin="13,212,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.174"/>
+                        <Label Content="Password" HorizontalAlignment="Left" Margin="277,160,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="save_new_user" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_student_Click"/>
+                        <TextBox x:Name="new_student_username" HorizontalAlignment="Left" Margin="18,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <Label Content="Brugernavn" HorizontalAlignment="Left" Margin="14,160,0,0" VerticalAlignment="Top"/>
+                        <ListBox x:Name="new_student_courses" HorizontalAlignment="Left" VerticalAlignment="Top" Width="232" SelectionMode="Single" Height="118" Margin="18,243,0,0"/>
+                    </Grid>
+                    <Grid x:Name="create_teacher_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" Visibility="Collapsed">
+                        <Label Content="Ny Underviser" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
+                        <TextBox x:Name="new_teacher_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <TextBox x:Name="new_teacher_surname" HorizontalAlignment="Left" Margin="277,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <Label Content="Fornavn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Efternavn" HorizontalAlignment="Left" Margin="272,66,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.158,-0.827"/>
+                        <Label Content="Kurser" HorizontalAlignment="Left" Margin="16,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.174" Visibility="Collapsed"/>
+                        <Button x:Name="save_new_teacher" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_teacher_Click"/>
+                        <ListBox x:Name="new_teacher_courses" HorizontalAlignment="Left" Margin="18,183,0,0" VerticalAlignment="Top" Width="232" SelectionMode="Multiple" Height="44" Visibility="Collapsed">
+                            <ListBoxItem Content="It-arkitektur"/>
+                            <ListBoxItem Content="Webudvikling"/>
+                        </ListBox>
+                        <TextBox x:Name="new_teacher_username" HorizontalAlignment="Left" Margin="18,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="19"/>
+                        <PasswordBox x:Name="new_teacher_password" HorizontalAlignment="Left" Margin="278,137,0,0" VerticalAlignment="Top" Width="232" Height="19"/>
+                        <Label Content="Brugernavn" HorizontalAlignment="Left" Margin="14,110,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Password" HorizontalAlignment="Left" Margin="273,111,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                    <Grid x:Name="create_course_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" Visibility="Collapsed">
+                        <Label Content="Ny Kursus" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
+                        <TextBox x:Name="new_course_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <Label Content="Kursus navn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="save_new_course" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_course_Click"/>
+                        <Label Content="Underviser" HorizontalAlignment="Left" Margin="15,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.1,-2.124"/>
+                        <Label Content="Lokale" HorizontalAlignment="Left" Margin="264,115,0,0" VerticalAlignment="Top"/>
+                        <ListBox x:Name="new_course_teacher" HorizontalAlignment="Left" Margin="19,139,0,0" VerticalAlignment="Top" Width="232" SelectionMode="Single" Height="46"></ListBox>
+                        <ListBox x:Name="new_course_room" HorizontalAlignment="Left" Margin="269,139,0,0" VerticalAlignment="Top" Width="232" SelectionMode="Single" Height="46"/>
+                    </Grid>
+                    <Grid x:Name="create_room_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" Visibility="Collapsed">
+                        <Label Content="Nyt Lokale" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
+                        <TextBox x:Name="new_room_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <Label Content="Lokale navn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="save_new_room" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_room_Click"/>
+                        <TextBox x:Name="new_room_amount_nr" HorizontalAlignment="Left" Margin="273,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19" PreviewTextInput="textboxOnlyInt"/>
+                        <Label Content="Antal" HorizontalAlignment="Left" Margin="269,66,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Window>
