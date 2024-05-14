@@ -9,6 +9,8 @@ using admin_ui.login;
 using admin_ui.table;
 using admin_ui.log;
 using admin_ui.database;
+using Newtonsoft.Json;
+using System.Data;
 
 
 
@@ -36,8 +38,9 @@ namespace admin_ui
             dataHandler = new DataHandler();
 
 
-            this.updateSettings();
-            this.update_data_grid();
+            updateSettings();
+            update_data_grid();
+            getStudents();
 
         }
 
@@ -48,22 +51,71 @@ namespace admin_ui
             string password;
 
             username = username_login.Text;
-            password = password_login.Text;
+            password = password_login.Password;
 
             if (loginHandler.Login(username, password))
             {
+
                 login_grid.Visibility = Visibility.Collapsed;
                 dashboard_grid.Visibility = Visibility.Visible;
-
             }
             else
             {
-                login_error_msg.Content = "Username or password is incorrect";
+                login_error_msg.Content = "Brugernavn eller password er forkert";
             }
 
         }
 
         //---- Table ----
+
+
+        private void getStudents() // Display overlay
+        {
+            dataTable.ItemsSource = null;
+
+            string jsonData = dataHandler.getData("StudentInfo", "StudentId, FirstName, LastName, Brugernavn, MailAdress, KursusNavn");
+            if (jsonData != null)
+            {
+                // Deserialize JSON string to DataTable
+                DataTable dt = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                dataTable.ItemsSource = dt.DefaultView;
+            }
+        }
+
+        private void getTeachers() // Display overlay
+        {
+            string jsonData = dataHandler.getData("TeacherInfo", "FirstName, LastName, Brugernavn, KursusNavn, LokaleNavn");
+            if (jsonData != null)
+            {
+                // Deserialize JSON string to DataTable
+                DataTable dt = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                dataTable.ItemsSource = dt.DefaultView;
+            }
+        }
+
+        private void getCourses() // Display overlay
+        {
+            string jsonData = dataHandler.getData("CourseInfo", "*");
+            if (jsonData != null)
+            {
+                // Deserialize JSON string to DataTable
+                DataTable dt = JsonConvert.DeserializeObject<DataTable>(jsonData);
+                dataTable.ItemsSource = dt.DefaultView;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         private void showOverlay(UIElement visibleOverlay) // Display overlay
@@ -81,18 +133,13 @@ namespace admin_ui
             create_room_grid.Visibility = Visibility.Collapsed;
         }
 
-        private void close_overlay_btn_Click(object sender, RoutedEventArgs e) { hideOverlay(); } // Close overlay btn
-        // Create Data btns
+        private void close_overlay_btn_Click(object sender, RoutedEventArgs e) { hideOverlay(); } 
         private void create_student_btn_Click(object sender, RoutedEventArgs e) { showOverlay(create_student_grid); getStudentData();  }
         private void create_teacher_btn_Click(object sender, RoutedEventArgs e) { showOverlay(create_teacher_grid); }
         private void create_course_btn_Click(object sender, RoutedEventArgs e) { showOverlay(create_course_grid); getCourseData(); }
         private void create_room_btn_Click(object sender, RoutedEventArgs e) { showOverlay(create_room_grid); }
+        private void create_admin_btn_Click(object sender, RoutedEventArgs e) { showOverlay(create_admin_grid); }
 
-
-        private void createNew()
-        {
-
-        }
 
         // Create new Overlays
         private void save_new_student_Click(object sender, RoutedEventArgs e) // Create new student
@@ -191,6 +238,26 @@ namespace admin_ui
         }
 
 
+        private void save_new_admin_Click(object sender, RoutedEventArgs e) // Create new teacher
+        {
+            string username = new_admin_username.Text;
+            string password = new_admin_password.Password;
+
+            List<string> errorMsg = loginHandler.Validate(username, password);
+
+            //new_user_validation_error.Content = System.String.Join(Environment.NewLine, errorMsg);
+
+            if (!errorMsg.Any()) // If no errors
+            {
+                dataHandler.createAdmin(username, password);
+                logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Create", $"Admin: {username}");
+                update_data_grid();
+            }
+
+        }
+
+
+
         private void populateListBox(System.Windows.Controls.ListBox listBox, string data)
         {
             listBox.Items.Clear();
@@ -227,111 +294,125 @@ namespace admin_ui
             }
         }
 
-    // ---- Treeview display ----
-
-    private void data_grid_state(object sender, RoutedEventArgs e)
-    {
-        //Button clickedBtn = (Button)sender;
-
-        //tableStateMachine.setState(clickedBtn.Content);
-    }
-
-   // ---- DB SETTINGS ----
 
 
-    private void checkSqlLogin()
-    {
-        if (db_auth_method_selector.Text == "SQL Login")
+        // ---- Treeview display ----
+
+        private void data_grid_state(object sender, RoutedEventArgs e)
         {
-            sql_username_textbox.IsEnabled = true;
-            sql_username_passwordbox.IsEnabled = true;
+            getStudentData();
         }
-        else
+
+       // ---- DB SETTINGS ----
+
+
+        private void checkSqlLogin()
         {
+            if (db_auth_method_selector.Text == "SQL Login")
+            {
+                sql_username_textbox.IsEnabled = true;
+                sql_username_passwordbox.IsEnabled = true;
+            }
+            else
+            {
+                sql_username_textbox.IsEnabled = false;
+                sql_username_passwordbox.IsEnabled = false;
+            }
+        }
+
+        private void enableDbSettings(object sender, RoutedEventArgs e) // ENABLE DB SETTINGS  EDITING
+        {
+            Debug.WriteLine("CHECKED");
+            db_server_ip_textbox.IsEnabled = true;
+            db_auth_method_selector.IsEnabled = true;
+
+            save_db_settings_btn.Visibility = Visibility.Visible;
+
+            checkSqlLogin();
+
+
+        }
+        private void disableDbSettings(object sender, RoutedEventArgs e) // DISABLE DB SETTINGS EDITING
+        {
+            Debug.WriteLine("UNCHECKED");
+            db_server_ip_textbox.IsEnabled = false;
+            db_auth_method_selector.IsEnabled = false;
             sql_username_textbox.IsEnabled = false;
             sql_username_passwordbox.IsEnabled = false;
+
+            save_db_settings_btn.Visibility = Visibility.Collapsed;
+
+
         }
-    }
 
-    private void enableDbSettings(object sender, RoutedEventArgs e) // ENABLE DB SETTINGS  EDITING
-    {
-        Debug.WriteLine("CHECKED");
-        db_server_ip_textbox.IsEnabled = true;
-        db_auth_method_selector.IsEnabled = true;
-
-        save_db_settings_btn.Visibility = Visibility.Visible;
-
-        checkSqlLogin();
-
-
-    }
-    private void disableDbSettings(object sender, RoutedEventArgs e) // DISABLE DB SETTINGS EDITING
-    {
-        Debug.WriteLine("UNCHECKED");
-        db_server_ip_textbox.IsEnabled = false;
-        db_auth_method_selector.IsEnabled = false;
-        sql_username_textbox.IsEnabled = false;
-        sql_username_passwordbox.IsEnabled = false;
-
-        save_db_settings_btn.Visibility = Visibility.Collapsed;
-
-
-    }
-
-    private void checkIfDropdownAllowed(object sender, EventArgs e)
-    {
-        if (enable_db_settings_checkbox.IsChecked == false)
+        private void checkIfDropdownAllowed(object sender, EventArgs e)
         {
-            System.Windows.Controls.ComboBox db_auth_metod_selector = sender as System.Windows.Controls.ComboBox;
-            db_auth_metod_selector.IsDropDownOpen = false;
+            if (enable_db_settings_checkbox.IsChecked == false)
+            {
+                System.Windows.Controls.ComboBox db_auth_metod_selector = sender as System.Windows.Controls.ComboBox;
+                db_auth_metod_selector.IsDropDownOpen = false;
+            }
         }
-    }
 
 
 
-    private void updateSelection(object sender, EventArgs e)
-    {
-        this.checkSqlLogin();
-    }
-
-    private void save_db_settings_btn_Click(object sender, RoutedEventArgs e)
-    {
-        DbSettings settings = new DbSettings
+        private void updateSelection(object sender, EventArgs e)
         {
-            DbServerIp = db_server_ip_textbox.Text,
-            AuthType = db_auth_method_selector.Text,
-            Username = sql_username_textbox.Text,
-            Password = sql_username_passwordbox.Password
-        };
+            this.checkSqlLogin();
+        }
 
-        settings.SaveToJson("settings.json");
+        private void save_db_settings_btn_Click(object sender, RoutedEventArgs e)
+        {
+            DbSettings settings = new DbSettings
+            {
+                DbServerIp = db_server_ip_textbox.Text,
+                AuthType = db_auth_method_selector.Text,
+                Username = sql_username_textbox.Text,
+                Password = sql_username_passwordbox.Password
+            };
 
-        logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Update", "DB Settings");
-        update_data_grid();
+            settings.SaveToJson("settings.json");
+
+            logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Update", "DB Settings");
+            update_data_grid();
+        }
+
+        private void updateSettings()
+        {
+            DbSettings settings = DbSettings.ReadFromJson("settings.json");
+
+            db_server_ip_textbox.Text = settings.DbServerIp;
+            db_auth_method_selector.Text = settings.AuthType;
+            sql_username_textbox.Text = settings.Username;
+            sql_username_passwordbox.Password = settings.Password;
+        }
+
+        private void update_data_grid()
+        {
+            log_datagrid.ItemsSource = null; // Clear grid
+            log_datagrid.ItemsSource = logHandler.ReadLogEntries();
+        }
+
+        private void textboxOnlyInt(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = new Regex("[0^9]+").IsMatch(e.Text);
+        }
+
+        private void display_students(object sender, RoutedEventArgs e)
+        {
+            getStudents();
+        }
+        private void display_teachers(object sender, RoutedEventArgs e)
+        {
+            getTeachers();
+        }
+
+        private void display_courses(object sender, RoutedEventArgs e)
+        {
+            getCourses();
+        }
+
     }
-
-    private void updateSettings()
-    {
-        DbSettings settings = DbSettings.ReadFromJson("settings.json");
-
-        db_server_ip_textbox.Text = settings.DbServerIp;
-        db_auth_method_selector.Text = settings.AuthType;
-        sql_username_textbox.Text = settings.Username;
-        sql_username_passwordbox.Password = settings.Password;
-    }
-
-    private void update_data_grid()
-    {
-        log_datagrid.ItemsSource = null; // Clear grid
-        log_datagrid.ItemsSource = logHandler.ReadLogEntries();
-    }
-
-    private void textboxOnlyInt(object sender, TextCompositionEventArgs e)
-    {
-        e.Handled = new Regex("[0^9]+").IsMatch(e.Text);
-    }
-
-}
 }
 
 

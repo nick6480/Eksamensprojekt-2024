@@ -221,6 +221,38 @@ namespace admin_ui.database
             }
         }
 
+
+        public void createAdmin(string username, string password)
+        {
+            try
+            {
+                var builder = msSqlConnection();
+
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+
+                    // Create a SqlCommand object for calling the stored procedure
+                    using (SqlCommand command = new SqlCommand("CreateAdmin", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        // Add parameters to the command
+                        command.Parameters.AddWithValue("@Username", username);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+        }
+
+
+
         public class Course
         {
             public int CourseId { get; set; }
@@ -333,8 +365,63 @@ namespace admin_ui.database
 
 
 
+        public string getData(string view, string query)
+            {
+                try
+                {
+                    var builder = msSqlConnection();
 
-        public class Room
+                    using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                    {
+                        connection.Open();
+
+                        // Create a SqlCommand object for executing the query
+                        string sqlQuery = $"SELECT {query} FROM {view}";
+                        using (SqlCommand command = new SqlCommand(sqlQuery, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                // Check if there are any rows returned
+                                if (reader.HasRows)
+                                {
+                                    // Create a dictionary to store column names and values
+                                    var result = new List<Dictionary<string, object>>();
+
+                                    // Iterate through the rows and add them to the list
+                                    while (reader.Read())
+                                    {
+                                        var dict = new Dictionary<string, object>();
+                                        for (int i = 0; i < reader.FieldCount; i++)
+                                        {
+                                            dict[reader.GetName(i)] = reader.GetValue(i);
+                                        }
+                                        result.Add(dict);
+                                    }
+
+                                    // Serialize the result list to JSON
+                                    return JsonConvert.SerializeObject(result);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("No rows found.");
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (SqlException e)
+                {
+                    Debug.WriteLine(e.ToString());
+                }
+
+                return null;
+            }
+
+
+
+
+
+    public class Room
         {
             public int RoomId { get; set; }
             public string RoomName { get; set; }
@@ -385,7 +472,43 @@ namespace admin_ui.database
             return rooms;
         }
 
+        public bool AdminLogin(string username, string password)
+        {
+            bool isValid = false;
+            Debug.WriteLine("THIS IS THE DATAAHANDLER");
+            try
+            {
+                var builder = msSqlConnection();
 
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand("CheckAdminCredentials", connection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@Username", username);
+                        command.Parameters.AddWithValue("@Password", password);
+
+                        SqlParameter returnParameter = command.Parameters.Add("@IsValid", SqlDbType.Bit);
+                        returnParameter.Direction = ParameterDirection.Output;
+
+                        command.ExecuteNonQuery();
+
+                       
+                        isValid = (bool)returnParameter.Value;
+                        Debug.WriteLine($"result: {isValid}");
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+
+            return isValid;
+        }
     }
 
 

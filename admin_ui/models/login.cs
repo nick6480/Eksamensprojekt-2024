@@ -1,5 +1,9 @@
-﻿using System;
+﻿using admin_ui.database;
+using admin_ui.log;
+using admin_ui.table;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,9 +14,16 @@ namespace admin_ui.login
     internal class LoginHandler
     {
         private string _currentUser;
+        private DataHandler dataHandler;
 
-        // Method to authenticate a user
-        public List<string> Validate(string email, string password)
+
+        public LoginHandler()
+        {
+            dataHandler = new DataHandler();
+        }
+
+            // Method to authenticate a user
+            public List<string> Validate(string email, string password)
         {
             List<string> error_msg = new List<string>();
 
@@ -28,9 +39,13 @@ namespace admin_ui.login
         // Method to perform login
         public bool Login(string username, string password)
         {
-            if (DEBUG_CHECK_IF_USER_EXISTS(username, password))
+            bool isValid = false;
+            isValid = dataHandler.AdminLogin(username, password);
+
+            Debug.WriteLine($"IS THE PASSWORD VALID : {isValid}");
+
+            if (isValid)
             {
-                _currentUser = username; // Set the current user
                 return true;
             }
             else
