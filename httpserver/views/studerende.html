@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="Studerende.css">
+</head>
+<body>
+    <header>
+        <h1>Velkommen, <span id="studentName"></span></h1>
+        <button onclick="closeApp()">Luk programmet</button>
+    </header>
+    <section id="courses">
+        <button type="button" onclick="showCourses()">Show Courses</button>
+        <p id="coursesContent" style="display:none;"></p>
+    </section>
+
+    <section id="location">
+        <button type="button" onclick="showLocation()">Show Location</button>
+        <p id="locationContent" style="display:none;"></p>
+    </section>
+
+    <section id="personal-info">
+        <button type="button" onclick="showPersonalInfo()">Show Personal Info</button>
+        <p id="personalInfoContent" style="display:none;"></p>
+    </section>
+
+    <!-- <script src="Studerende.js"></script> -->
+    
+    <!-- SCRIPT AND STYLE SHOUD BE IN THEIR OWN FILES BUT COULD NOT GET THE SERVER TO SERVE THEM-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve student name from localStorage
+            var studentName = localStorage.getItem('studentName');
+            // Update the student name in the header
+            document.getElementById("studentName").textContent = studentName;
+        });
+
+        function showCourses() {
+            // Hide all content sections
+            hideAllContentSections();
+
+            // Show courses content
+            document.getElementById("coursesContent").innerHTML = "Der er ingen kurser endnu.";
+            document.getElementById("coursesContent").style.display = "block";
+            document.getElementById("coursesContent").style.textAlign = "right"; // Align content to the right
+        }
+
+        function showLocation() {
+            // Hide all content sections
+            hideAllContentSections();
+
+            // Show location content
+            document.getElementById("locationContent").innerHTML = "Der er ingen Lokaler";
+            document.getElementById("locationContent").style.display = "block";
+            document.getElementById("locationContent").style.textAlign = "right"; // Align content to the right
+        }
+
+        function showPersonalInfo() {
+            // Hide all content sections
+            hideAllContentSections();
+
+            // Show personal info content
+            var personalInfoContent = document.getElementById("personalInfoContent");
+            personalInfoContent.innerHTML = "Der er ingen person-info";
+            personalInfoContent.style.display = "block";
+            personalInfoContent.style.position = "fixed";
+            personalInfoContent.style.bottom = "20px";
+            personalInfoContent.style.left = "20px";
+            personalInfoContent.style.textAlign = "left";
+        }
+
+        function hideAllContentSections() {
+            // Hide all content sections
+            document.getElementById("coursesContent").style.display = "none";
+            document.getElementById("locationContent").style.display = "none";
+            document.getElementById("personalInfoContent").style.display = "none";
+        }
+
+        function closeApp() {
+            window.close();
+        }
+
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            background-color: #f8f8f8;
+        }
+
+        header {
+            padding: 20px;
+            background-color: #757575;
+            color: #fff;
+            text-align: left;
+        }
+
+            header button {
+                padding: 15px 30px;
+                background-color: #c3c1c1;
+                color: #333;
+                border: none;
+                cursor: pointer;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 16px;
+                border-radius: 8px;
+                box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+            }
+
+                header button:hover {
+                    background-color: #a8a6a6;
+                }
+
+        button {
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+            button:hover {
+                background-color: #9e9e9e;
+            }
+
+        section {
+            margin: 20px;
+            text-align: left;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+            text-align: right;
+        }
+    </style>
+</body>
+</html>

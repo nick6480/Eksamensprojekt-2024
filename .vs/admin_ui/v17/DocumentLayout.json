@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Eksamensprojekt-2024\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|e:\\eksamensprojekt-2024\\admin_ui\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|solutionrelative:admin_ui\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|e:\\eksamensprojekt-2024\\admin_ui\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|solutionrelative:admin_ui\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|e:\\eksamensprojekt-2024\\admin_ui\\models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|solutionrelative:admin_ui\\models\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|e:\\eksamensprojekt-2024\\admin_ui\\models\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|solutionrelative:admin_ui\\models\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|e:\\eksamensprojekt-2024\\admin_ui\\models\\log.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7848CA4D-199D-4D64-80F0-67F7450335F1}|admin_ui\\admin_ui.csproj|solutionrelative:admin_ui\\models\\log.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "E:\\Eksamensprojekt-2024\\admin_ui\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "admin_ui\\MainWindow.xaml",
+              "ToolTip": "E:\\Eksamensprojekt-2024\\admin_ui\\MainWindow.xaml",
+              "RelativeToolTip": "admin_ui\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-14T13:37:35.427Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "E:\\Eksamensprojekt-2024\\admin_ui\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "admin_ui\\MainWindow.xaml.cs",
+              "ToolTip": "E:\\Eksamensprojekt-2024\\admin_ui\\MainWindow.xaml.cs",
+              "RelativeToolTip": "admin_ui\\MainWindow.xaml.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAADwvz8AAABPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T13:37:32.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "login.cs",
+              "DocumentMoniker": "E:\\Eksamensprojekt-2024\\admin_ui\\models\\login.cs",
+              "RelativeDocumentMoniker": "admin_ui\\models\\login.cs",
+              "ToolTip": "E:\\Eksamensprojekt-2024\\admin_ui\\models\\login.cs",
+              "RelativeToolTip": "admin_ui\\models\\login.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAAADQAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T17:54:04.677Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "log.cs",
+              "DocumentMoniker": "E:\\Eksamensprojekt-2024\\admin_ui\\models\\log.cs",
+              "RelativeDocumentMoniker": "admin_ui\\models\\log.cs",
+              "ToolTip": "E:\\Eksamensprojekt-2024\\admin_ui\\models\\log.cs",
+              "RelativeToolTip": "admin_ui\\models\\log.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAEYAAABeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T14:16:40.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "database.cs",
+              "DocumentMoniker": "E:\\Eksamensprojekt-2024\\admin_ui\\models\\database.cs",
+              "RelativeDocumentMoniker": "admin_ui\\models\\database.cs",
+              "ToolTip": "E:\\Eksamensprojekt-2024\\admin_ui\\models\\database.cs",
+              "RelativeToolTip": "admin_ui\\models\\database.cs",
+              "ViewState": "AQIAANYBAAAAAAAAAAAUwPQBAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-14T13:54:55.962Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/fahadawad/Projects/httpserver/httpserver/httpserver-fahadawad.csproj": {}
+  },
+  "projects": {
+    "/Users/fahadawad/Projects/httpserver/httpserver/httpserver-fahadawad.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/fahadawad/Projects/httpserver/httpserver/httpserver-fahadawad.csproj",
+        "projectName": "httpserver-fahadawad",
+        "projectPath": "/Users/fahadawad/Projects/httpserver/httpserver/httpserver-fahadawad.csproj",
+        "packagesPath": "/Users/fahadawad/.nuget/packages/",
+        "outputPath": "/Users/fahadawad/Projects/httpserver/httpserver/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/fahadawad/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.315/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

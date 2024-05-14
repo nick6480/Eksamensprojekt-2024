@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="httpserver/login.css">
+</head>
+<body>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br><br>
+        <p id="passwordError" style="color: red; display: none;">Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</p>
+        <label for="role">Select Role:</label>
+        <select id="role" required>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+        </select><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <!--<script src="httpserver/login.js"></script>-->
+    
+    <!-- SCRIPT AND STYLE SHOUD BE IN THEIR OWN FILES BUT COULD NOT GET THE SERVER TO SERVE THEM-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById('loginForm');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Forhindrer formularen i at blive sendt normalt
+
+                // Hent værdier fra formularfelterne
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+                var role = document.getElementById('role').value;
+
+                // Lav et objekt med brugeroplysningerne
+                var userData = {
+                    email: email,
+                    password: password,
+                    role: role
+                };
+
+                // Send dataene til serveren ved hjælp af en POST-anmodning
+                fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text(); // Hent svarteksten
+                    })
+                    .then(data => {
+                        // Håndter serverens svar her, f.eks. omdirigere brugeren baseret på svaret
+                        if (role === 'student') {
+                            redirectToStudentPortal();
+                        } else if (role === 'teacher') {
+                            redirectToTeacherPortal();
+                        } else {
+                            alert('Invalid role selection.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                        // Håndter eventuelle fejl, f.eks. visning af en fejlbesked til brugeren
+                    });
+            });
+        });
+
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgb(255, 255, 255);
+        }
+
+        form {
+            background-color: rgb(255, 255, 255);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #00aeff;
+            color: white;
+            padding: 18px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #000000;
+            }
+    </style>
+
+
+</body>
+
+</html>

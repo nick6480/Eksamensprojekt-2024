@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="Underviser.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" onclick="enrolledStudents()">Show Students</a>
+        <a href="#" onclick="courseDetail()">Show Course Detail</a>
+        <a href="#" onclick="showPersonalInfo()">Show Room Info</a>
+        <a href="#" onclick="checkPersonalInfo()">Check Personal Info</a>
+        <a href="#" onclick="closeApp()">Close Application</a>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <header>
+            <h1>Welcome <span id="studentName"></span></h1>
+        </header>
+        <section id="courses">
+            <p id="Studentcontent" style="display:none;"></p>
+        </section>
+        <section id="courseDetail">
+            <p id="courseDetailContent" style="display:none;"></p>
+        </section>
+        <section id="room-info">
+            <p id="roomContent" style="display:none;"></p>
+        </section>
+    </div>
+
+    <!--<script src="underviser.js"></script>-->
+   
+    <!-- SCRIPT AND STYLE SHOUD BE IN THEIR OWN FILES BUT COULD NOT GET THE SERVER TO SERVE THEM-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Retrieve student name from localStorage
+            var studentName = localStorage.getItem('studentName');
+            // Update the student name in the header
+            document.getElementById("studentName").textContent = studentName;
+        });
+        // Function for close applikation
+        function closeApp() {
+            window.close();
+        }
+
+        // Function for enrolled students
+        function enrolledStudents() {
+            hideAllContentSections(); // Hide all content sections first
+            var studentContent = document.getElementById("Studentcontent");
+            if (studentContent.style.display === "none") {
+                studentContent.style.display = "block";
+                studentContent.style.textAlign = "right";
+                studentContent.innerHTML = "List of enrolled students goes here."; // Legg til innholdet her
+            } else {
+                studentContent.style.display = "none";
+                studentContent.innerHTML = "";
+            }
+        }
+
+        // Function for courseDetail
+        function courseDetail() {
+            hideAllContentSections(); // Hide all content sections first
+            var courseDetailContent = document.getElementById("courseDetailContent");
+            if (courseDetailContent.style.display === "none") {
+                courseDetailContent.style.display = "block";
+                courseDetailContent.style.textAlign = "right";
+                courseDetailContent.innerHTML = "Course details go here."; // Legg til kursdetaljer her
+            } else {
+                courseDetailContent.style.display = "none";
+                courseDetailContent.innerHTML = "";
+            }
+        }
+
+        // Function for Person info
+        function showPersonalInfo() {
+            hideAllContentSections(); // Hide all content sections first
+            var roomContent = document.getElementById("roomContent");
+            if (roomContent.style.display === "none") {
+                roomContent.style.display = "block";
+                roomContent.style.textAlign = "right";
+                roomContent.innerHTML = "Room information goes here."; // Legg til rominformasjon her
+            } else {
+                roomContent.style.display = "none";
+                roomContent.innerHTML = "";
+            }
+        }
+
+        function hideAllContentSections() {
+            // Hide all content sections
+            document.getElementById("roomContent").style.display = "none";
+            document.getElementById("courseDetailContent").style.display = "none";
+            document.getElementById("Studentcontent").style.display = "none";
+        }
+
+        // Function to check personal information
+        function checkPersonalInfo() {
+            // You can implement the logic to retrieve and display personal information here
+            var instructorInfo = {
+                name: "John Doe",
+                email: "john.doe@example.com",
+                role: "Instructor"
+            };
+
+            // Display personal information in an alert (you can customize this according to your UI)
+            var infoString = "Name: " + instructorInfo.name + "\nEmail: " + instructorInfo.email + "\nRole: " + instructorInfo.role;
+            alert("Personal Information:\n" + infoString);
+        }
+
+    </script>
+
+    <style>
+        /* Sidebar styling */
+        .sidebar {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+            /* Links inside the sidebar */
+            .sidebar a {
+                padding: 10px 15px;
+                text-decoration: none;
+                font-size: 20px;
+                color: #818181;
+                display: block;
+            }
+
+                /* Change color on hover */
+                .sidebar a:hover {
+                    color: #f1f1f1;
+                }
+
+        /* Main content styling */
+        .content {
+            margin-left: 200px; /* Adjust according to the width of the sidebar */
+            padding: 20px;
+        }
+
+        header {
+            padding: 15px;
+            background-color: #757575;
+            color: #fff;
+            text-align: left;
+        }
+    </style>
+
+</body>
+</html>
