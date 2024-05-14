@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using SQLTest5.Modules.DBAdgang;
@@ -18,6 +18,8 @@ namespace HttpListenerExample
         public static int requestCount = 0;
         public static string htmlFilePath = Path.Combine(Environment.CurrentDirectory, "httpserver", "login.html");
         public static string connectionString = "Data Source=localhost;Initial Catalog=dbo;User ID=sa;Password=dockerStrongPwd123;";
+        public static string logFilePath = Path.Combine(Environment.CurrentDirectory, "httpserver", "requestLog.json");
+        public static RequestLogger requestLogger = new RequestLogger(logFilePath);
 
         // Method to validate user against the database
         static bool ValidateUser(string email, string password)
@@ -55,12 +57,7 @@ namespace HttpListenerExample
                     HttpListenerResponse resp = ctx.Response;
 
                     // Log request details
-                    Console.WriteLine("Request #: {0}", ++requestCount);
-                    Console.WriteLine(req.Url.ToString());
-                    Console.WriteLine(req.HttpMethod);
-                    Console.WriteLine(req.UserHostName);
-                    Console.WriteLine(req.UserAgent);
-                    Console.WriteLine(req.Url.AbsolutePath);
+                    requestLogger.LogRequest(req);
 
                     // Serve requested file
                     if (req.HttpMethod == "GET")
@@ -198,8 +195,64 @@ namespace HttpListenerExample
             {
                 Console.Error.WriteLine($"An error occurred: {ex.Message}");
             }
+
+            // Start HTTP server
+            try
+            {
+                listener = new HttpListener();
+                listener.Prefixes.Add(url);
+                listener.Start();
+                Console.WriteLine("Listening for connections on {0}", url);
+                Task listenTask = HandleIncomingConnections();
+                listenTask.GetAwaiter().GetResult(); // Wait for the task to complete
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"An error occurred while starting the server: {ex.Message}");
+            }
+            finally
+            {
+                // Stop listening for incoming connections
+                if (listener != null && listener.IsListening)
+                {
+                    listener.Close();
+                }
+            }
+
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
+        }
+    }
+
+    public class RequestLogger
+    {
+        private string logFilePath;
+
+        public RequestLogger(string logFilePath)
+        {
+            this.logFilePath = logFilePath;
+        }
+
+        public void LogRequest(HttpListenerRequest request)
+        {
+            try
+            {
+                var requestData = new
+                {
+                    Timestamp = DateTime.UtcNow,
+                    URL = request.Url.ToString(),
+                    HttpMethod = request.HttpMethod,
+                    UserHostName = request.UserHostName,
+                    UserAgent = request.UserAgent
+                };
+
+                string json = JsonSerializer.Serialize(requestData);
+                File.AppendAllText(logFilePath, json + Environment.NewLine);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error logging request: " + ex.Message);
+            }
         }
     }
 }
