@@ -1,11 +1,17 @@
-
 document.addEventListener("DOMContentLoaded", function() {
-    // Retrieve student name from localStorage
-    var studentName = localStorage.getItem('studentName');
-    // Update the student name in the header
-    document.getElementById("studentName").textContent = studentName;
+    // Retrieve teacher name from local storage
+    var teacherName = localStorage.getItem('teacherName');
+
+    // Update the teacher name in the header if it exists
+    if (teacherName) {
+        document.getElementById("teacherName").textContent = teacherName;
+    } else {
+        // Handle the case when the teacher name is not found
+        console.error("Teacher name not found in local storage.");
+    }
 });
-// Function for close applikation
+
+// Function for close application
 function closeApp() {
     window.close();
 }
@@ -17,7 +23,7 @@ function enrolledStudents() {
     if (studentContent.style.display === "none") {
         studentContent.style.display = "block";
         studentContent.style.textAlign = "right";
-        studentContent.innerHTML = "List of enrolled students goes here."; // Legg til innholdet her
+        studentContent.innerHTML = "List of enrolled students goes here."; // Add the content here
     } else {
         studentContent.style.display = "none";
         studentContent.innerHTML = "";
@@ -31,21 +37,21 @@ function courseDetail() {
     if (courseDetailContent.style.display === "none") {
         courseDetailContent.style.display = "block";
         courseDetailContent.style.textAlign = "right";
-        courseDetailContent.innerHTML = "Course details go here."; // Legg til kursdetaljer her
+        courseDetailContent.innerHTML = "Course details go here."; // Add course details here
     } else {
         courseDetailContent.style.display = "none";
         courseDetailContent.innerHTML = "";
     }
 }
 
-// Function for Person info
+// Function for Personal info
 function showPersonalInfo() {
     hideAllContentSections(); // Hide all content sections first
     var roomContent = document.getElementById("roomContent");
     if (roomContent.style.display === "none") {
         roomContent.style.display = "block";
         roomContent.style.textAlign = "right";
-        roomContent.innerHTML = "Room information goes here."; // Legg til rominformasjon her
+        roomContent.innerHTML = "Room information goes here."; // Add room information here
     } else {
         roomContent.style.display = "none";
         roomContent.innerHTML = "";
