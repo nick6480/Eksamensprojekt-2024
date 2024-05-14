@@ -66,47 +66,60 @@
                 <Button x:Name="save_db_settings_btn" Grid.Column="1" Content="Save" HorizontalAlignment="Left" Height="23" Margin="59,198,0,0" VerticalAlignment="Top" Width="72" Background="#FF2C9C1D" Foreground="White" BorderBrush="#FF2C9C1D" Click="save_db_settings_btn_Click" Visibility="Collapsed"/>
                 <PasswordBox x:Name="sql_username_passwordbox" HorizontalAlignment="Left" Margin="10,135,0,0" VerticalAlignment="Top" Width="255" Grid.ColumnSpan="2" Password="Password" Foreground="Gray" Focusable ="False" IsHitTestVisible="False"/>
             </Grid>
-            <Grid x:Name="overlay_grid" HorizontalAlignment="Left" Height="720" VerticalAlignment="Center" Width="1280" Background="#CC000000" Grid.ColumnSpan="3" Visibility="Collapsed">
-                <Grid x:Name="overlay_content_grid" HorizontalAlignment="Center" Height="391" VerticalAlignment="Center" Width="544" Background="White">
+            <Grid x:Name="overlay_grid" HorizontalAlignment="Left" Height="720" VerticalAlignment="Center" Width="1280" Background="#CC000000" Grid.ColumnSpan="3">
+                <Grid x:Name="overlay_content_grid" HorizontalAlignment="Center" Height="390" VerticalAlignment="Center" Width="544" Background="White">
                     <Button x:Name="close_overlay_btn" HorizontalAlignment="Left" Margin="488,20,0,0" VerticalAlignment="Top" Height="43" Width="46" Content="X" Click="close_overlay_btn_Click"/>
 
-                    <Grid x:Name="create_student_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" d:IsHidden="True" Visibility="Collapsed">
+                    <Grid x:Name="create_student_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524">
                         <Label Content="Ny studerende" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
                         <TextBox x:Name="new_student_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
                         <TextBox x:Name="new_student_surname" HorizontalAlignment="Left" Margin="277,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
-                        <TextBox x:Name="new_student_tlf" HorizontalAlignment="Left" Margin="277,136,0,0" TextWrapping="Wrap" Text="&#xA;" VerticalAlignment="Top" Width="233" Height="19"/>
                         <TextBox x:Name="new_student_email" HorizontalAlignment="Left" Margin="18,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
-                        <PasswordBox x:Name="new_student_password" HorizontalAlignment="Left" Margin="18,183,0,0" VerticalAlignment="Top" Width="232"/>
+                        <PasswordBox x:Name="new_student_password" HorizontalAlignment="Left" Margin="277,186,0,166" Width="232" Height="19"/>
                         <Label Content="Fornavn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
                         <Label Content="Efternavn" HorizontalAlignment="Left" Margin="272,66,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.158,-0.827"/>
                         <Label Content="E-mail" HorizontalAlignment="Left" Margin="14,110,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Tlf." HorizontalAlignment="Left" Margin="272,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,-0.288"/>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="232" Height="21" DisplayMemberPath="" SelectedIndex="0" RenderTransformOrigin="0.489,1.152" Margin="278,181,0,0">
-                            <ComboBoxItem Content="It-arkitekt"/>
-                            <ComboBoxItem Content="Webdev"/>
-                            <System:String>Password</System:String>
-                        </ComboBox>
-                        <Label Content="Studie" HorizontalAlignment="Left" Margin="272,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.174"/>
-                        <Label Content="Password" HorizontalAlignment="Left" Margin="14,157,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Kursus" HorizontalAlignment="Left" Margin="13,212,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.174"/>
+                        <Label Content="Password" HorizontalAlignment="Left" Margin="277,160,0,0" VerticalAlignment="Top"/>
                         <Button x:Name="save_new_user" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_student_Click"/>
+                        <TextBox x:Name="new_student_username" HorizontalAlignment="Left" Margin="18,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <Label Content="Brugernavn" HorizontalAlignment="Left" Margin="14,160,0,0" VerticalAlignment="Top"/>
+                        <ListBox x:Name="new_student_courses" HorizontalAlignment="Left" VerticalAlignment="Top" Width="232" SelectionMode="Single" Height="118" Margin="18,243,0,0"/>
                     </Grid>
                     <Grid x:Name="create_teacher_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" Visibility="Collapsed">
                         <Label Content="Ny Underviser" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
-                        <TextBox x:Name="new_teacher_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19" TextChanged="new_user_name_TextChanged"/>
+                        <TextBox x:Name="new_teacher_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
                         <TextBox x:Name="new_teacher_surname" HorizontalAlignment="Left" Margin="277,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
-                        <TextBox x:Name="new_teacher_tlf" HorizontalAlignment="Left" Margin="277,136,0,0" TextWrapping="Wrap" Text="&#xA;" VerticalAlignment="Top" Width="233" Height="19"/>
-                        <TextBox x:Name="new_teacher_email" HorizontalAlignment="Left" Margin="18,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
-                        <PasswordBox x:Name="new_teacher_password" HorizontalAlignment="Left" Margin="18,183,0,0" VerticalAlignment="Top" Width="232"/>
                         <Label Content="Fornavn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
                         <Label Content="Efternavn" HorizontalAlignment="Left" Margin="272,66,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.158,-0.827"/>
-                        <Label Content="E-mail" HorizontalAlignment="Left" Margin="14,110,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Tlf." HorizontalAlignment="Left" Margin="272,110,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.132,-0.288"/>
-                        <Label Content="Studier" HorizontalAlignment="Left" Margin="272,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.174"/>
-                        <Label Content="Password" HorizontalAlignment="Left" Margin="14,157,0,0" VerticalAlignment="Top"/>
-                        <Label x:Name="new_user_validation_error" Content="" HorizontalAlignment="Left" Margin="19,206,0,0" VerticalAlignment="Top" Width="231" Foreground="#FFD01010"/>
-                        <Button x:Name="save_new_user_Copy" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_teacher_Click"/>
-                        <CheckBox Content="It-arkitektur" HorizontalAlignment="Left" Margin="277,184,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.369,-1.114"/>
-                        <CheckBox Content="Webudvikling" HorizontalAlignment="Left" Margin="277,204,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.369,-1.114"/>
+                        <Label Content="Kurser" HorizontalAlignment="Left" Margin="16,157,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.447,0.174" Visibility="Collapsed"/>
+                        <Button x:Name="save_new_teacher" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_teacher_Click"/>
+                        <ListBox x:Name="new_teacher_courses" HorizontalAlignment="Left" Margin="18,183,0,0" VerticalAlignment="Top" Width="232" SelectionMode="Multiple" Height="44" Visibility="Collapsed">
+                            <ListBoxItem Content="It-arkitektur"/>
+                            <ListBoxItem Content="Webudvikling"/>
+                        </ListBox>
+                        <TextBox x:Name="new_teacher_username" HorizontalAlignment="Left" Margin="18,137,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="232" Height="19"/>
+                        <PasswordBox x:Name="new_teacher_password" HorizontalAlignment="Left" Margin="278,137,0,0" VerticalAlignment="Top" Width="232" Height="19"/>
+                        <Label Content="Brugernavn" HorizontalAlignment="Left" Margin="14,110,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Password" HorizontalAlignment="Left" Margin="273,111,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                    <Grid x:Name="create_course_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" Visibility="Collapsed">
+                        <Label Content="Ny Kursus" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
+                        <TextBox x:Name="new_course_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <Label Content="Kursus navn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="save_new_course" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_course_Click"/>
+                        <Label Content="Underviser" HorizontalAlignment="Left" Margin="15,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.1,-2.124"/>
+                        <Label Content="Lokale" HorizontalAlignment="Left" Margin="264,115,0,0" VerticalAlignment="Top"/>
+                        <ListBox x:Name="new_course_teacher" HorizontalAlignment="Left" Margin="19,139,0,0" VerticalAlignment="Top" Width="232" SelectionMode="Single" Height="46"></ListBox>
+                        <ListBox x:Name="new_course_room" HorizontalAlignment="Left" Margin="269,139,0,0" VerticalAlignment="Top" Width="232" SelectionMode="Single" Height="46"/>
+                    </Grid>
+                    <Grid x:Name="create_room_grid" HorizontalAlignment="Center" Height="371" VerticalAlignment="Center" Width="524" Visibility="Collapsed">
+                        <Label Content="Nyt Lokale" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="10,14,0,0"/>
+                        <TextBox x:Name="new_room_name" HorizontalAlignment="Left" Margin="18,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19"/>
+                        <Label Content="Lokale navn" HorizontalAlignment="Left" Margin="14,66,0,0" VerticalAlignment="Top"/>
+                        <Button x:Name="save_new_room" Content="Save" HorizontalAlignment="Left" Height="30" Margin="394,341,0,0" VerticalAlignment="Top" Width="130" Click="save_new_room_Click"/>
+                        <TextBox x:Name="new_room_amount_nr" HorizontalAlignment="Left" Margin="273,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="233" Height="19" PreviewTextInput="textboxOnlyInt"/>
+                        <Label Content="Antal" HorizontalAlignment="Left" Margin="269,66,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </Grid>
             </Grid>
