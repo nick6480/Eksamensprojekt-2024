@@ -1,37 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.Generic;
-
-using Newtonsoft.Json;
-using System.Linq;
-using System.Threading.Tasks;
-using System.IO;
-
-
-
 
 using enterprise.login;
 using enterprise.table;
 using enterprise.log;
-
-using Xceed.Wpf.Toolkit;
-using System.Data;
 using enterprise.database;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using System;
-using System.Windows.Forms;
-using static enterprise.database.DataHandler;
+
 
 
 
@@ -104,8 +82,6 @@ namespace enterprise
         }
 
         private void close_overlay_btn_Click(object sender, RoutedEventArgs e) { hideOverlay(); } // Close overlay btn
-
-
         // Create Data btns
         private void create_student_btn_Click(object sender, RoutedEventArgs e) { showOverlay(create_student_grid); getStudentData();  }
         private void create_teacher_btn_Click(object sender, RoutedEventArgs e) { showOverlay(create_teacher_grid); }
@@ -132,14 +108,6 @@ namespace enterprise
             }
 
 
-
-
-
-
-
-
-
-
             string email = new_student_email.Text;
             string username = new_student_username.Text;
             string password = new_student_password.Password;
@@ -152,6 +120,8 @@ namespace enterprise
             if (!errorMsg.Any()) // If no errors
             {
                 dataHandler.createStudent(firstName, lastName, email, username, password, courseId);
+                logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Create", $"Student: {firstName}");
+                update_data_grid();
             }
 
 
@@ -178,6 +148,8 @@ namespace enterprise
             if (!errorMsg.Any()) // If no errors
             {
                 dataHandler.createTeacher(firstName, lastName, username, password);
+                logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Create", $"Teacher: {firstName}");
+                update_data_grid();
             }
 
         }
@@ -204,9 +176,19 @@ namespace enterprise
             }
 
             dataHandler.createCourse(courseName, teacherId, roomId);
+            logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Create", $"Course: {courseName}");
+            update_data_grid();
         }
 
 
+        private void save_new_room_Click(object sender, RoutedEventArgs e)
+        {
+            string roomName = new_room_name.Text;
+            string roomAmount = new_room_amount_nr.Text;
+            dataHandler.createRoom(roomName, Convert.ToInt32(roomAmount));
+            logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Create", $"Room: {roomName}");
+            update_data_grid();
+        }
 
 
         private void populateListBox(System.Windows.Controls.ListBox listBox, string data)
@@ -245,42 +227,6 @@ namespace enterprise
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    private void save_new_room_Click(object sender, RoutedEventArgs e)
-    {
-        string roomName = new_room_name.Text;
-        string roomAmount = new_room_amount_nr.Text;
-        dataHandler.createRoom(roomName, Convert.ToInt32(roomAmount));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // ---- Treeview display ----
 
     private void data_grid_state(object sender, RoutedEventArgs e)
@@ -288,71 +234,44 @@ namespace enterprise
         //Button clickedBtn = (Button)sender;
 
         //tableStateMachine.setState(clickedBtn.Content);
-
-
-
-
-
-
     }
 
-
-
-    // ---- DB SETTINGS ----
+   // ---- DB SETTINGS ----
 
 
     private void checkSqlLogin()
     {
         if (db_auth_method_selector.Text == "SQL Login")
         {
-            sql_username_textbox.IsReadOnly = false;
-            sql_username_textbox.Foreground = Brushes.Black;
-
-            sql_username_passwordbox.Focusable = true;
-            sql_username_passwordbox.IsHitTestVisible = true;
-            sql_username_passwordbox.Foreground = Brushes.Black;
+            sql_username_textbox.IsEnabled = true;
+            sql_username_passwordbox.IsEnabled = true;
         }
         else
         {
-            sql_username_textbox.IsReadOnly = true;
-            sql_username_textbox.Foreground = Brushes.Gray;
-
-            sql_username_passwordbox.Focusable = false;
-            sql_username_passwordbox.IsHitTestVisible = false;
-            sql_username_passwordbox.Foreground = Brushes.Gray;
+            sql_username_textbox.IsEnabled = false;
+            sql_username_passwordbox.IsEnabled = false;
         }
-
     }
-
-
 
     private void enableDbSettings(object sender, RoutedEventArgs e) // ENABLE DB SETTINGS  EDITING
     {
         Debug.WriteLine("CHECKED");
-        db_server_ip_textbox.IsReadOnly = false;
-        db_server_ip_textbox.Foreground = Brushes.Black;
-        db_auth_method_selector.Foreground = Brushes.Black;
+        db_server_ip_textbox.IsEnabled = true;
+        db_auth_method_selector.IsEnabled = true;
 
         save_db_settings_btn.Visibility = Visibility.Visible;
 
-        this.checkSqlLogin();
+        checkSqlLogin();
 
 
     }
     private void disableDbSettings(object sender, RoutedEventArgs e) // DISABLE DB SETTINGS EDITING
     {
         Debug.WriteLine("UNCHECKED");
-        db_server_ip_textbox.IsReadOnly = true;
-        db_server_ip_textbox.Foreground = Brushes.Gray;
-        db_auth_method_selector.Foreground = Brushes.Gray;
-
-
-        sql_username_textbox.IsReadOnly = true;
-        sql_username_textbox.Foreground = Brushes.Gray;
-
-        sql_username_passwordbox.Focusable = false;
-        sql_username_passwordbox.IsHitTestVisible = false;
-        sql_username_passwordbox.Foreground = Brushes.Gray;
+        db_server_ip_textbox.IsEnabled = false;
+        db_auth_method_selector.IsEnabled = false;
+        sql_username_textbox.IsEnabled = false;
+        sql_username_passwordbox.IsEnabled = false;
 
         save_db_settings_btn.Visibility = Visibility.Collapsed;
 
@@ -387,8 +306,6 @@ namespace enterprise
 
         settings.SaveToJson("settings.json");
 
-
-
         logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Update", "DB Settings");
         update_data_grid();
     }
@@ -401,54 +318,12 @@ namespace enterprise
         db_auth_method_selector.Text = settings.AuthType;
         sql_username_textbox.Text = settings.Username;
         sql_username_passwordbox.Password = settings.Password;
-
-
     }
-
 
     private void update_data_grid()
     {
         log_datagrid.ItemsSource = null; // Clear grid
         log_datagrid.ItemsSource = logHandler.ReadLogEntries();
-
-
-    }
-
-
-
-    private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void log_datagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-
-    }
-
-    private void new_user_name_TextChanged(object sender, TextChangedEventArgs e)
-    {
-
-    }
-
-
-
-
-    private void delete_selected_btn_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
-
-
-    private void new_student_name1_TextChanged(object sender, TextChangedEventArgs e)
-    {
-
-    }
-
-    private void new_room_amount(object sender, TextCompositionEventArgs e)
-    {
-
     }
 
     private void textboxOnlyInt(object sender, TextCompositionEventArgs e)
@@ -456,10 +331,6 @@ namespace enterprise
         e.Handled = new Regex("[0^9]+").IsMatch(e.Text);
     }
 
-    private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
-    {
-
-    }
 }
 }
 

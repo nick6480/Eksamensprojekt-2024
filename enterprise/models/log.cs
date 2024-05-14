@@ -57,11 +57,6 @@ namespace enterprise.log
             string json = JsonConvert.SerializeObject(logEntries, Formatting.Indented);
             // Write the JSON back to the file
             File.WriteAllText(filePath, json);
-
-
-
-
-
         }
 
 
@@ -73,10 +68,7 @@ namespace enterprise.log
             var json = File.ReadAllText(fname);
             List<LogEntry>? _logEntries = JsonConvert.DeserializeObject<List<LogEntry>>(json);
 
-
             return _logEntries;
-
-
         }
 
 

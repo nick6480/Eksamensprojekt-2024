@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "96T6Eh/3i1HOnVjYxGEWMNP20fSsDY/6m3dptvrmHelxvGmF5ERhcG5dIhISRoolVO0ZxIDYavkIVg+8LC4GmA==",
+  "dgSpecHash": "2hBFl8974t7jBk8D5RWjo6oANpE2IyOqO9HtYp7rBvvSlC1aFJ1uOAgwswayRVJqoywB/WQBM5e6mKsbybc1uQ==",
   "success": true,
-  "projectFilePath": "E:\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj",
+  "projectFilePath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\github\\Eksamensprojekt-2024\\enterprise\\enterprise.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicko\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\nicko\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
