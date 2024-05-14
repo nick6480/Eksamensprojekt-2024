@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="Studerende.css">
+</head>
+<body>
+    <header>
+        <h1>Velkommen, <span id="studentName"></span></h1>
+        <button onclick="closeApp()">Luk programmet</button>
+    </header>
+    <section id="courses">
+        <button type="button" onclick="showCourses()">Show Courses</button>
+        <p id="coursesContent" style="display:none;"></p>
+    </section>
+
+    <section id="location">
+        <button type="button" onclick="showLocation()">Show Location</button>
+        <p id="locationContent" style="display:none;"></p>
+    </section>
+
+    <section id="personal-info">
+        <button type="button" onclick="showPersonalInfo()">Show Personal Info</button>
+        <p id="personalInfoContent" style="display:none;"></p>
+    </section>
+
+    <script src="Studerende.js"></script>
+</body>
+</html>

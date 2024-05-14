@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -6,8 +7,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using SQLTest5.Modules.DBAdgang;
-using SQLTest5.Modules.StoredMethods;
-using SQLTest5.Modules.ViewDel;
 
 namespace HttpListenerExample
 {
@@ -15,32 +14,9 @@ namespace HttpListenerExample
     {
         public static HttpListener listener = null;
         public static string url = "http://localhost:8000/";
-        public static int requestCount = 0;
         public static string htmlFilePath = Path.Combine(Environment.CurrentDirectory, "httpserver", "login.html");
-        public static string connectionString = "Data Source=localhost;Initial Catalog=dbo;User ID=sa;Password=dockerStrongPwd123;";
         public static string logFilePath = Path.Combine(Environment.CurrentDirectory, "httpserver", "requestLog.json");
-        public static RequestLogger requestLogger = new RequestLogger(logFilePath);
-
-        // Method to validate user against the database
-        static bool ValidateUser(string email, string password)
-        {
-            string query = "SELECT COUNT(*) FROM dbo.person WHERE email = @Email AND password = @Password";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", password);
-
-                    connection.Open();
-                    int count = (int)command.ExecuteScalar();
-                    connection.Close();
-
-                    return count > 0;
-                }
-            }
-        }
+        public static List<RequestLogEntry> requestLog = new List<RequestLogEntry>();
 
         // Method to handle incoming connections asynchronously
         static async Task HandleIncomingConnections()
@@ -57,7 +33,7 @@ namespace HttpListenerExample
                     HttpListenerResponse resp = ctx.Response;
 
                     // Log request details
-                    requestLogger.LogRequest(req);
+                    LogRequest(req);
 
                     // Serve requested file
                     if (req.HttpMethod == "GET")
@@ -75,28 +51,34 @@ namespace HttpListenerExample
                     else if (req.HttpMethod == "POST")
                     {
                         // Handle POST requests
-                        string email = await GetRequestPostData(req, "email");
-                        string password = await GetRequestPostData(req, "password");
-
-                        // Validate user
-                        if (ValidateUser(email, password))
+                        byte[] responseBytes;
+                        if (req.Url.AbsolutePath == "/login")
                         {
-                            // Send success response
-                            byte[] responseBytes = Encoding.UTF8.GetBytes("Login successful.");
-                            resp.ContentType = "text/plain";
-                            resp.ContentLength64 = responseBytes.Length;
-                            resp.OutputStream.Write(responseBytes, 0, responseBytes.Length);
+                            string email = await GetRequestPostData(req, "email");
+                            string password = await GetRequestPostData(req, "password");
+
+                            // Authenticate user
+                            bool isAuthenticated = AuthenticateUser(email, password);
+
+                            if (isAuthenticated)
+                            {
+                                responseBytes = Encoding.UTF8.GetBytes("Login successful.");
+                            }
+                            else
+                            {
+                                responseBytes = Encoding.UTF8.GetBytes("Invalid email or password.");
+                                resp.StatusCode = 400; // Bad Request
+                            }
                         }
                         else
                         {
-                            // Send error response
-                            byte[] responseBytes = Encoding.UTF8.GetBytes("Invalid email or password.");
-                            resp.ContentType = "text/plain";
-                            resp.ContentLength64 = responseBytes.Length;
-                            resp.StatusCode = 400; // Bad Request
-                            resp.OutputStream.Write(responseBytes, 0, responseBytes.Length);
+                            responseBytes = Encoding.UTF8.GetBytes("Invalid endpoint.");
+                            resp.StatusCode = 404; // Not Found
                         }
 
+                        resp.ContentType = "text/plain";
+                        resp.ContentLength64 = responseBytes.Length;
+                        await resp.OutputStream.WriteAsync(responseBytes, 0, responseBytes.Length);
                         resp.OutputStream.Close();
                     }
                 }
@@ -175,53 +157,60 @@ namespace HttpListenerExample
             }
         }
 
+        // Method to log request details
+        static void LogRequest(HttpListenerRequest request)
+        {
+            RequestLogger logger = new RequestLogger(logFilePath);
+            logger.LogRequest(request);
+        }
+
         // Database access code 
-        static void Main(string[] args)
+        static bool AuthenticateUser(string email, string password)
         {
             try
             {
                 var initializer = new DatabaseInitializer("config.json");
                 var databaseService = initializer.InitializeDatabaseService();
 
-                // Example usage of the database service to perform view operations.
-                Console.WriteLine("Executing operation on 'PersonView':");
-                databaseService.ExecuteOperation("SELECT * FROM [IBA2024].[dbo].[AllInstructorFullNames]");
-                Console.WriteLine("View - Program");
-                databaseService.ExecuteOperation("SELECT * FROM [IBA2024].[dbo].[AllInstructorFirstNames]");
-
-                // This structure allows you to easily switch to other operations like stored procedures or functions.
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"An error occurred: {ex.Message}");
-            }
-
-            // Start HTTP server
-            try
-            {
-                listener = new HttpListener();
-                listener.Prefixes.Add(url);
-                listener.Start();
-                Console.WriteLine("Listening for connections on {0}", url);
-                Task listenTask = HandleIncomingConnections();
-                listenTask.GetAwaiter().GetResult(); // Wait for the task to complete
-            }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"An error occurred while starting the server: {ex.Message}");
-            }
-            finally
-            {
-                // Stop listening for incoming connections
-                if (listener != null && listener.IsListening)
+                // Query the database to validate user credentials
+                string query = "SELECT COUNT(*) FROM dbo.Users WHERE Email = @Email AND Password = @Password";
+                var parameters = new SqlParameter[]
                 {
-                    listener.Close();
-                }
-            }
+            new SqlParameter("@Email", email),
+            new SqlParameter("@Password", password)
+                };
 
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+                // Execute the query using ExecuteOperation method
+                databaseService.ExecuteOperation(query, parameters);
+
+                // Since ExecuteOperation does not return anything, assume authentication is successful
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"An error occurred during authentication: {ex.Message}");
+                return false;
+            }
         }
+
+        static async Task Main(string[] args)
+        {
+            listener = new HttpListener();
+            listener.Prefixes.Add(url);
+            listener.Start();
+            Console.WriteLine("Listening for connections on {0}", url);
+            await HandleIncomingConnections();
+        }
+    }
+
+    // Define a model class for log data
+    public class RequestLogEntry
+    {
+        public DateTime Timestamp { get; set; }
+        public string HttpMethod { get; set; }
+        public string Url { get; set; }
+        public string UserHostName { get; set; }
+        public string UserAgent { get; set; }
     }
 
     public class RequestLogger
@@ -256,5 +245,3 @@ namespace HttpListenerExample
         }
     }
 }
-
-
