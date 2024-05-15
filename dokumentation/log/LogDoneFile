@@ -5,66 +5,63 @@ Efter godkendelse + OK, så efter endt proces: Flowchart - Mohammad OK
 -------------------------------------------------
 
 ProjektOpstart: Milepæl 0 
-1 Git oprettelse -                   Nickolaj      ok
-2 Log + diver oprettelse -           Nickolaj      ok
-3 Projektplan -                      Allan + Fahad ok
-4 Gantt -                            Fahad         ok
-5 Rapport opstart -                  Allan         ok
-6 Foreløbig Flowchart -              Mohammad      ok
-0.1 WBS -                            Alle          ok
+1 Git oprettelse -                       Nickolaj  100%               ok
+2 Log + diver oprettelse -               Nickolaj  100%               ok
+3 Projektplan -                          Allan + Fahad 50%/50%        ok
+4 Gantt -                                Fahad     100%               ok
+5 Rapport opstart -                      Allan     100%               ok
+6 Foreløbig Flowchart -                  Mohammad  100%               ok
+0.1 WBS -                                Alle      25%/25%/25%/25%    ok
 
 Analysen: Milepæl 1
-7 Problemformulering -               Allan+Alle    ok
-8 Problemstilling -                  Allan+Alle    ok
-9 User Stories -                     Fahad+Alle    ok
-10 Kravsanalyse -                    Fahad+Alle    ok
+7 Problemformulering -                   Allan+Alle 80%/20%           ok
+8 Problemstilling -                      Allan+Alle 80%/20%           ok
+9 User Stories -                         Fahad+Alle 80%/20%           ok
+10 Kravsanalyse -                        Fahad+Alle 80%/20%           ok
 
 Forløb: Milepæl 2
 Projektforløb
-11 Afgrænsning -                     Allan+Alle     ok
-12 Succeskriterier -                 Allan          ok
-13 Kravspecifikation -               Fahad+Alle     ok
+11 Afgrænsning -                         Allan+Alle 80%/20%           ok
+12 Succeskriterier -                     Allan      100%              ok
+13 Kravspecifikation -                   Fahad+Alle 80%/20%           ok
 
 Design: Milepæl 3
-14 Design værktøjer                  Allan    ok  
-  14.1 OOP                           Allan    ok
-  14.2 Design Pattern                Allan    ok
-  14.3 UML                           Allan    ok  
-  14.6 DP: Singleton v/database adgangen
-  14.7 DP: Observer
-  14.8 DP: Adapter
-  14.p DP: Repository
-15 Adfærd                                 Allan      ok
-  15.1 UML - Use Case (adfærd)            Mohammad   
-  15.3 UML - Sequence (adfærd)            Nickolaj (admin UI), Fahad (View/Controller), Allan (Controller/Model)
-  15.4 UML - Klasse (structural)          Nickolaj, Allan, Fahad
-  15.5 UML - State Machine (adfærd)       Nickolaj
-16 Arkitektur: MVC                        Allan
-17 Koncept                                Allan
-18 Teknologi                              Allan
-19 Mock-up                                Nickolaj
+14 Design værktøjer                       Allan      100%              ok  
+  14.1 OOP                                Allan      100%              ok 
+  14.2 Design Pattern                     Allan      100%              ok 
+  14.3 UML                                Allan      100%              ok 
+
+
+15 Adfærd                                 Allan 100%              ok
+  15.1 UML - Use Case (adfærd)            Mohammad 100%           ok  
+  15.3 UML - Sequence (adfærd)            Nickolaj + Fahad + Allan 33%/33%/33%  ok
+  15.4 UML - Klasse (structural)          Nickolaj, Allan, Fahad   33%/33%/33%  ok
+16 Arkitektur: MVC                        Allan 100%              ok
+17 Koncept                                Allan 100%              ok
+18 Teknologi                              Allan + Fahad 70%/30%   ok
+19 Mock-up                                Nickolaj + Mohammad 60%/40% ok
 
 Kode:
-A. Controller - Webserver              Fahad: Opdeling (View (HTML) og Controller (C# delen), gennemgang, test og sammensætning med Webdelen 
-B. Model - MS SQL Databasen/adgangen   Allan: Database konstruktion, Enterprise applikation, sammensat - en Viewdel og Funktiondel
-C. ADM UI -                            Nickolaj
-D. HTML/CSS JS -                       Mohammad
+A. Controller - Webserver                 Fahad    100%               ok
+B. Model - Databasen/enterprise apl       Allan    100%               ok
+C. ADM UI - Windows                       Nickolaj 100%               ok
+D. HTML/CSS JS -                          Mohammad + Nickolaj 90%/10% ok
 
 
 
 
 Prototypen: Milepæl 4
-20 Værktøjer
+20 Værktøjer                              Allan + Fahad + Nickolaj 60%/20%/20%
 21 Brugergrænseflade
 22 Systemudvikling
 23 Validering og verificering
  
 Disk Milepæl: 5
 24 Refleksion
-25 Problemformulering
-26 Kvalitet
-27 Metoder
-28 Perspektivering
+25 Problemformulering                     Allan 
+26 Kvalitet                               Allan + Fahad
+27 Metoder                                Allan
+28 Perspektivering                        Allan
 
 
 
