@@ -4,5 +4,47 @@
     "Username": null,
     "Action": "Create",
     "Target": "Admin: Admin1"
+  },
+  {
+    "Timestamp": "2024-05-15T08:38:06.5954363Z",
+    "Username": null,
+    "Action": "Create",
+    "Target": "Student: Nickolaj"
+  },
+  {
+    "Timestamp": "2024-05-15T08:40:27.0805251Z",
+    "Username": null,
+    "Action": "Update",
+    "Target": "DB Settings"
+  },
+  {
+    "Timestamp": "2024-05-15T08:41:01.363543Z",
+    "Username": null,
+    "Action": "Create",
+    "Target": "Room: 408"
+  },
+  {
+    "Timestamp": "2024-05-15T08:41:47.0793836Z",
+    "Username": null,
+    "Action": "Create",
+    "Target": "Teacher: John"
+  },
+  {
+    "Timestamp": "2024-05-15T08:42:14.0927688Z",
+    "Username": null,
+    "Action": "Create",
+    "Target": "Course: It-arkitektur"
+  },
+  {
+    "Timestamp": "2024-05-15T08:42:50.3571167Z",
+    "Username": null,
+    "Action": "Create",
+    "Target": "Student: Nickolaj"
+  },
+  {
+    "Timestamp": "2024-05-15T08:44:03.5476131Z",
+    "Username": null,
+    "Action": "Update",
+    "Target": "DB Settings"
   }
 ]

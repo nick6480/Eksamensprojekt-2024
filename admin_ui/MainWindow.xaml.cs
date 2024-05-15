@@ -41,7 +41,7 @@ namespace admin_ui
             updateSettings();
             update_data_grid();
             getStudents();
-
+            hideOverlay();
         }
 
         // ---- LOGIN ----
@@ -131,6 +131,7 @@ namespace admin_ui
             create_teacher_grid.Visibility = Visibility.Collapsed;
             create_course_grid.Visibility = Visibility.Collapsed;
             create_room_grid.Visibility = Visibility.Collapsed;
+            create_admin_grid.Visibility = Visibility.Collapsed;
         }
 
         private void close_overlay_btn_Click(object sender, RoutedEventArgs e) { hideOverlay(); } 

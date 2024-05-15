@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GKraqcSwS8glMJKg6dCT4e0xNEtGcmfUgPjqr07OntW5NkT6t+G5SrMuO3Cgvm+PMQ7z7Uojx/wSo+9JemDyGg==",
+  "dgSpecHash": "403jmNvwsJamgqFK3hGDdWq4zjZFd2Pk9E9Mf2evB6JRWgqcEBGlZU1828kIkuWmGnGAqR4A1ussWY951AKEbw==",
   "success": true,
-  "projectFilePath": "E:\\Eksamensprojekt-2024\\admin_ui\\admin_ui.csproj",
+  "projectFilePath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\admin_ui\\admin_ui.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicko\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\nicko\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
