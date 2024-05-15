@@ -23,7 +23,7 @@ namespace admin_ui.login
         }
 
             // Method to authenticate a user
-            public List<string> Validate(string email, string password)
+            private List<string> Validate(string email, string password)
         {
             List<string> error_msg = new List<string>();
 
