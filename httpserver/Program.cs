@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Runtime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -179,36 +182,72 @@ namespace HttpListenerExample
             //logger.LogRequest(request);
         }
 
-        // Database access code 
-        static bool AuthenticateUser(string email, string password)
+        internal class DataHandler
         {
-            try
+            private SqlConnectionStringBuilder msSqlConnection()
             {
-                var initializer = new DatabaseInitializer(@"../../../config/config.json");
-                var databaseService = initializer.InitializeDatabaseService();
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+                DbSettings settings = DbSettings.ReadFromJson("settings.json");
 
-                // Query the database to validate user credentials
-                string query = "SELECT COUNT(*) FROM dbo.Users WHERE Email = @Email AND Password = @Password";
-                var parameters = new SqlParameter[]
+                builder.DataSource = settings.DbServerIp;
+                builder.UserID = settings.Username;
+                builder.Password = settings.Password;
+
+                if (settings.AuthType == "Windows Authentication")
                 {
-            new SqlParameter("@Email", email),
-            new SqlParameter("@Password", password)
-                };
+                    builder.IntegratedSecurity = true;
+                }
+                builder.InitialCatalog = "eksammensprojekt2024";
+                builder.TrustServerCertificate = true;
 
-                // Execute the query using ExecuteOperation method
-                databaseService.ExecuteOperation(query, parameters);
-
-                // Since ExecuteOperation does not return anything, assume authentication is successful
-                return true;
+                return builder;
             }
-            catch (Exception ex)
+
+
+            /*
+            // Database access code 
+            static bool AuthenticateUser(string email, string password)
             {
-                Console.Error.WriteLine($"An error occurred during authentication: {ex.Message}");
-                return false;
-            }
-        }
+                try
+                {
+                    var initializer = new DatabaseInitializer(@"../../../config/config.json");
+                    var databaseService = initializer.InitializeDatabaseService();
 
-        static async Task Main(string[] args)
+                    // Call the stored procedure to validate user credentials
+                    var parameters = new SqlParameter[]
+                    {
+                new SqlParameter("@Brugernavn", email),
+                new SqlParameter("@Password", password)
+                    };
+
+                    // Execute the stored procedure using ExecuteStoredProcedure method
+                    var result = databaseService.ExecuteStoredProcedure("CheckLogin", parameters);
+
+                    // Check if the result contains any rows
+                    if (result.HasRows)
+                    {
+                        // Authentication successful
+
+                        Console.WriteLine("Sucessfull login");
+                        return true;
+                    }
+                    else
+                    {
+                        // Authentication failed
+                        Console.WriteLine("Sucessfull login");
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine($"An error occurred during authentication: {ex.Message}");
+                    return false;
+                }
+            }
+
+            */
+
+            static async Task Main(string[] args)
         {
             listener = new HttpListener();
             listener.Prefixes.Add(url);
