@@ -2174,11 +2174,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\admin_ui\\admin_ui.csproj",
+      "projectUniqueName": "E:\\Eksamensprojekt-2024\\admin_ui\\admin_ui.csproj",
       "projectName": "admin_ui",
-      "projectPath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\admin_ui\\admin_ui.csproj",
+      "projectPath": "E:\\Eksamensprojekt-2024\\admin_ui\\admin_ui.csproj",
       "packagesPath": "C:\\Users\\nicko\\.nuget\\packages\\",
-      "outputPath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\admin_ui\\obj\\",
+      "outputPath": "E:\\Eksamensprojekt-2024\\admin_ui\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2248,7 +2248,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

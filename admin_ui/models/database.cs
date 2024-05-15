@@ -9,6 +9,7 @@ using System.IO;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Diagnostics;
+using System.Web;
 
 
 namespace admin_ui.database
@@ -68,6 +69,7 @@ namespace admin_ui.database
 
         public void createStudent(string firstName, string lastName, string email, string username, string password, int? courseId)
         {
+            string encodedPassword = HttpUtility.UrlEncode(password);
             try
             {
 
@@ -87,7 +89,7 @@ namespace admin_ui.database
                         command.Parameters.AddWithValue("@FirstName", firstName);
                         command.Parameters.AddWithValue("@LastName", lastName);
                         command.Parameters.AddWithValue("@MailAddress", email);
-                        command.Parameters.AddWithValue("@Password", password);
+                        command.Parameters.AddWithValue("@Password", encodedPassword);
                         command.Parameters.AddWithValue("@Brugernavn", username);
                         command.Parameters.AddWithValue("@KursusId ", courseId);
 
@@ -189,6 +191,7 @@ namespace admin_ui.database
 
         public void createTeacher(string firstName, string lastName, string username,string password)
         {
+            string encodedPassword = HttpUtility.UrlEncode(password);
             try
             {
 
@@ -208,7 +211,7 @@ namespace admin_ui.database
                         command.Parameters.AddWithValue("@FirstName", firstName);
                         command.Parameters.AddWithValue("@LastName", lastName);
                         command.Parameters.AddWithValue("@BrugerNavn", lastName);
-                        command.Parameters.AddWithValue("@Password", password);
+                        command.Parameters.AddWithValue("@Password", encodedPassword);
 
 
                         command.ExecuteNonQuery();
