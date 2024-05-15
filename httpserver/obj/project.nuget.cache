@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UVVYZARfDrlmkVMR1vsdaiXenLW6/13np7RicpcmNvWWraem6zOjq3oKxRaaBsdzoIs2hhTIb3jYvSBwZDScUw==",
+  "dgSpecHash": "VSn68QPp0Lt/XkMrTOrbGTDdzA6P5boXlt+Qx2mx0Poc+PvdYTqbnxCzH4cj9MudZthU6+47GCJc6VBNXOoAmw==",
   "success": true,
-  "projectFilePath": "E:\\webserver\\httpserver\\httpserver.csproj",
+  "projectFilePath": "C:\\It-arkitekt\\Semester 2\\Eksammensprojekt\\Eksamensprojekt-2024\\httpserver\\httpserver.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nicko\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\nicko\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -43,7 +43,11 @@
     "C:\\Users\\nicko\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
     "C:\\Users\\nicko\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
     "C:\\Users\\nicko\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\nicko\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\nicko\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\nicko\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.15\\microsoft.windowsdesktop.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\nicko\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.15\\microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\nicko\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.15\\microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512",
+    "C:\\Users\\nicko\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\7.0.15\\microsoft.netcore.app.host.win-x86.7.0.15.nupkg.sha512"
   ],
   "logs": []
 }

@@ -184,7 +184,7 @@ namespace HttpListenerExample
         {
             try
             {
-                var initializer = new DatabaseInitializer("config.json");
+                var initializer = new DatabaseInitializer(@"../../../config/config.json");
                 var databaseService = initializer.InitializeDatabaseService();
 
                 // Query the database to validate user credentials
