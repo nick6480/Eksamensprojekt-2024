@@ -1,0 +1,68 @@
+@startuml
+class MainWindow {
+    - loginHandler
+    - tableStateMachine
+    - logHandler
+    - dataHandler
+
+    - login_btn_Click()
+    - show_overlay_btn_Click()
+    - hide_overlay_btn_Click()
+    - create_new_user_btn_Click()
+    - save_new_user_btn_Click()
+    - create_new_room_btn_Click()
+    - save_new_room_btn_Click()
+    - create_new_course_btn_Click()
+    - save_new_course_btn_Click()
+    - edit_selected_btn_Click()
+    - delete_selected_btn_Click()
+}
+
+class LoginHandler {
+    - _currentUser
+    - dataHandler
+
+    -Validate()
+    +Login()
+    +Logout()
+    +IsLoggedId()
+    +GetLoggedInUser()
+}
+
+class LogHandler {
+    - filePath
+
+    +NewLogEntry()
+    +ReadLogEntries()
+}
+
+class TableStateMachine {
+    + currentState
+    +setState()
+    +updateData()
+}
+
+class DbSettings {
+    + DbServerId
+    + AuthType
+    + Username
+    + Password
+
+    + SaveToJson()
+    + ReadFromJson()
+}
+
+class DataHandler {
+    + msSqlConnection()
+    + createUser()
+    + createRoom()
+    + createCourse()
+    + getData()
+}
+
+MainWindow -- LoginHandler
+MainWindow -- LogHandler
+MainWindow -- TableStateMachine
+MainWindow -- DataHandler
+DataHandler -- DbSettings
+@enduml
