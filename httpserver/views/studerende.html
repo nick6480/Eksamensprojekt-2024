@@ -4,42 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal</title>
-    <link rel="stylesheet" href="Studerende.css">
-</head>
-<body>
-    <header>
-        <h1>Velkommen, <span id="studentName"></span></h1>
-        <button onclick="closeApp()">Luk programmet</button>
-    </header>
-    <section id="courses">
-        <button type="button" onclick="showCourses()">Show Courses</button>
-        <p id="coursesContent" style="display:none;"></p>
-    </section>
+    <!--<link rel="stylesheet" href="Studerende.css">-->
+    </head>
+    <body>
+        <header>
+            <h1>Velkommen, <span id="studentName"></span></h1>
+            <button onclick="closeApp()">Luk programmet</button>
+        </header>
+        <section id="courses">
+            <button type="button">Show Courses</button>
+            <p id="coursesContent" style="display:none;"></p>
+        </section>
 
-    <section id="location">
-        <button type="button" onclick="showLocation()">Show Location</button>
-        <p id="locationContent" style="display:none;"></p>
-    </section>
+        <section id="location">
+            <button type="button" onclick="showLocation()">Show Location</button>
+            <p id="locationContent" style="display:none;"></p>
+        </section>
 
-    <section id="personal-info">
-        <button type="button" onclick="showPersonalInfo()">Show Personal Info</button>
-        <p id="personalInfoContent" style="display:none;"></p>
-    </section>
+        <section id="personal-info">
+            <button type="button" onclick="showPersonalInfo()">Show Personal Info</button>
+            <p id="personalInfoContent" style="display:none;"></p>
+        </section>
 
-    <!-- <script src="Studerende.js"></script> -->
-    
+        <!-- <script src="Studerende.js"></script> -->
     <!-- SCRIPT AND STYLE SHOUD BE IN THEIR OWN FILES BUT COULD NOT GET THE SERVER TO SERVE THEM-->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Retrieve student name from localStorage
-            var studentName = localStorage.getItem('studentName');
-            // Update the student name in the header
-            document.getElementById("studentName").textContent = studentName;
-        });
+
+        // Retrieve student name from localStorage
+        const username = getUsername();
+
+        // Update the student name in the header
+        document.getElementById("studentName").textContent = username;
+
+
+        document.getElementById("courses").addEventListener('click', showCourses);
+
 
         function showCourses() {
             // Hide all content sections
             hideAllContentSections();
+
+            const username = getUsername()
+            const course = get(`getCourses?username=${username}`)
 
             // Show courses content
             document.getElementById("coursesContent").innerHTML = "Der er ingen kurser endnu.";
@@ -78,9 +84,46 @@
             document.getElementById("personalInfoContent").style.display = "none";
         }
 
+        function getUsername() {
+            var username = localStorage.getItem('username');
+            return username
+        }
+
+
+        async function get(data, URL) {
+            try {
+                const response = await fetch(URL, {
+                    method: 'get',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                return response.json();
+            } catch (error) {
+                console.error('Error:', error);
+                throw error; // Re-throw the error to propagate it further if needed
+            }
+        }
+        
+
+
+
+
+
+
+
+
+
         function closeApp() {
             window.close();
         }
+
+
+
+
 
     </script>
 
@@ -146,5 +189,5 @@
             text-align: right;
         }
     </style>
-</body>
+    </body>
 </html>

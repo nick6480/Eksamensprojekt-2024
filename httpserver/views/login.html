@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="httpserver/login.css">
+    <!-- <link rel="stylesheet" type="text/css" href="httpserver/login.css">-->
 </head>
 <body>
     <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="email" id="email" required><br><br>
+        <label for="email">Username:</label>
+        <input type ="text" id="email" required><br><br>
         <label for="password">Password:</label>
         <input type="password" id="password" required><br><br>
         <p id="passwordError" style="color: red; display: none;">Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</p>
@@ -39,7 +39,6 @@
                 var userData = {
                     email: email,
                     password: password,
-                    role: role
                 };
 
                 console.log(userData.email, userData.password, userData.role)
@@ -48,29 +47,34 @@
                 fetch('/login', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: JSON.stringify(userData)
+                    body: 'email=' + encodeURIComponent(userData.email) + '&password=' + encodeURIComponent(userData.password)
                 })
                     .then(response => {
+                        // Check if the response is successful
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-                        return response.text(); // Hent svarteksten
+                        // Extract the response body as text
+                        return response.text();
                     })
                     .then(data => {
+                        console.log(data)
                         // Håndter serverens svar her, f.eks. omdirigere brugeren baseret på svaret
-                        if (role === 'student') {
-                            redirectToStudentPortal();
-                        } else if (role === 'teacher') {
-                            redirectToTeacherPortal();
-                        } else {
-                            alert('Invalid role selection.');
+
+                        localStorage.setItem("username", userData.email);
+          
+
+                        if (data === 'Student') {
+                            window.location.href = '/studerende';
+                        } else if (data === 'Teacher') {
+                            window.location.href = '/underviser';
                         }
                     })
                     .catch(error => {
+                        // Handle any errors
                         console.error('There was a problem with the fetch operation:', error);
-                        // Håndter eventuelle fejl, f.eks. visning af en fejlbesked til brugeren
                     });
             });
         });
@@ -96,7 +100,8 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        input[type="email"],
+        input,
+        input[type="imput"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
