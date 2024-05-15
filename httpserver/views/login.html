@@ -42,6 +42,8 @@
                     role: role
                 };
 
+                console.log(userData.email, userData.password, userData.role)
+
                 // Send dataene til serveren ved hjælp af en POST-anmodning
                 fetch('/login', {
                     method: 'POST',
