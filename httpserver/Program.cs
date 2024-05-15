@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 using SQLTest5.Modules.DBAdgang;
 
 namespace HttpListenerExample
@@ -48,7 +49,9 @@ namespace HttpListenerExample
                     // Serve requested file
                     if (req.HttpMethod == "GET")
                     {
+                        byte[] responseBytes;
                         string filename = req.Url.AbsolutePath.Substring(1);
+                        Console.WriteLine(filename);    
                         if (filename == "")
                         {
                             ServeFile(loginFilePath, resp);
@@ -61,21 +64,43 @@ namespace HttpListenerExample
                         {
                             ServeFile(studentsFilePath, resp);
                         }
-                        else if (filename == "getCourses")
+                        else if (filename == "getStudentData")
                         {
-                            Console.WriteLine("New course request");
-
-                            // Extract query parameters
                             var queryParameters = req.Url.Query;
-
-                            // Parse query parameters if needed
-                            // For example, if you expect a username parameter: 
                             string username = HttpUtility.ParseQueryString(queryParameters).Get("username");
 
-                            // Now you have access to the username or any other query parameters
-                            Console.WriteLine("Username: " + username);
-                        }
+                            DataTable result = CallViewWithUsername("UserDetailsView", "FirstName, LastName, MailAdress, KursusNavn, LokaleNavn", username);
+                            string jsonResult = JsonConvert.SerializeObject(result, Formatting.Indented);
+                            Console.WriteLine(jsonResult);
 
+                            responseBytes = Encoding.UTF8.GetBytes(jsonResult);
+                            resp.ContentType = "text/plain";
+                            resp.ContentLength64 = responseBytes.Length;
+                            await resp.OutputStream.WriteAsync(responseBytes, 0, responseBytes.Length);
+                            resp.OutputStream.Close();
+
+                        }
+                        else if (filename == "getTeacherData")
+                        {
+
+                            var queryParameters = req.Url.Query;
+
+                            string username = HttpUtility.ParseQueryString(queryParameters).Get("username");
+
+
+                            DataTable teacherDetailsResult = CallViewWithUsername("TeacherDetailsView", "FirstName, LastName, KursusNavn, LokaleNavn", username);
+                            string jsonResult = JsonConvert.SerializeObject(teacherDetailsResult, Formatting.Indented);
+                            Console.WriteLine(jsonResult);
+
+
+
+                            responseBytes = Encoding.UTF8.GetBytes(jsonResult);
+                            resp.ContentType = "text/plain";
+                            resp.ContentLength64 = responseBytes.Length;
+                            await resp.OutputStream.WriteAsync(responseBytes, 0, responseBytes.Length);
+                            resp.OutputStream.Close();
+
+                        }
 
                         else
                         {
@@ -92,24 +117,17 @@ namespace HttpListenerExample
                             var postData = await GetRequestPostData(req);
                             string email = postData.ContainsKey("email") ? postData["email"] : null;
                             string password = postData.ContainsKey("password") ? postData["password"] : null;
+
                             
-
-
-                            Console.WriteLine(password);
-
 
                             // Authenticate user
                             string isAuthenticated = AuthenticateUser(email, password);
-
-
-
-                            Console.WriteLine("AUTH ", isAuthenticated);
 
                             if (isAuthenticated != null)
                             {
                                 // Authentication successful (user role retrieved)
                                 Console.WriteLine(isAuthenticated);
-                                responseBytes = Encoding.UTF8.GetBytes("Login successful.");
+                                responseBytes = Encoding.UTF8.GetBytes(isAuthenticated);
                             }
                             else
                             {
@@ -216,13 +234,41 @@ namespace HttpListenerExample
             //logger.LogRequest(request);
         }
 
+        static DataTable CallViewWithUsername(string viewName, string columns, string username)
+        {
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder
+            {
+                DataSource = "DESKTOP-T66VN3N\\SQLEXPRESS",
+                UserID = "nick",
+                Password = "1234Abcd#",
+                InitialCatalog = "eksammensprojekt2024",
+                TrustServerCertificate = true
+            };
+
+            using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+            {
+                string query = $"SELECT {columns} FROM {viewName} WHERE Brugernavn = @Username";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    connection.Open();
+                    DataTable result = new DataTable();
+                    result.Load(command.ExecuteReader());
+                    return result;
+                }
+            }
+        }
+
+
+
 
 
 
         // Method to determine content type based on file extension
-        static string AuthenticateUser(string email, string password)
+        static string AuthenticateUser(string email, string password) // TEMP -- COULD NOT GET THE PROPER WAY TO WORK IN TIME
         {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder // SHOULD READ FROM CONFIG FILE
             {
                 DataSource = "DESKTOP-T66VN3N\\SQLEXPRESS",
                 UserID = "nick",
@@ -262,44 +308,30 @@ namespace HttpListenerExample
 
 
 
-
-
-
-
+        // THE ORIGINAL AuthenticateUser
 
         /*
         // Database access code 
-        static bool AuthenticateUser(string email, string password)
+         static bool AuthenticateUser(string email, string password)
         {
             try
             {
-                var initializer = new DatabaseInitializer(@"../../../config/config.json");
+                var initializer = new DatabaseInitializer("config.json");
                 var databaseService = initializer.InitializeDatabaseService();
 
-                // Call the stored procedure to validate user credentials
+                // Query the database to validate user credentials
+                string query = "SELECT COUNT(*) FROM dbo.Users WHERE Email = @Email AND Password = @Password";
                 var parameters = new SqlParameter[]
                 {
-            new SqlParameter("@Brugernavn", email),
+            new SqlParameter("@Email", email),
             new SqlParameter("@Password", password)
                 };
 
-                // Execute the stored procedure using ExecuteStoredProcedure method
-                var result = databaseService.ExecuteStoredProcedure("CheckLogin", parameters);
+                // Execute the query using ExecuteOperation method
+                databaseService.ExecuteOperation(query, parameters);
 
-                // Check if the result contains any rows
-                if (result.HasRows)
-                {
-                    // Authentication successful
-
-                    Console.WriteLine("Sucessfull login");
-                    return true;
-                }
-                else
-                {
-                    // Authentication failed
-                    Console.WriteLine("Sucessfull login");
-                    return false;
-                }
+                // Since ExecuteOperation does not return anything, assume authentication is successful
+                return true;
             }
             catch (Exception ex)
             {
@@ -352,7 +384,7 @@ namespace HttpListenerExample
                         UserAgent = request.UserAgent
                     };
 
-                    string json = JsonSerializer.Serialize(requestData);
+                    string json = System.Text.Json.JsonSerializer.Serialize(requestData);
                     File.AppendAllText(logFilePath, json + Environment.NewLine);
                 }
                 catch (Exception ex)

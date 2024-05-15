@@ -41,6 +41,10 @@
             var studentName = localStorage.getItem('studentName');
             // Update the student name in the header
             document.getElementById("studentName").textContent = studentName;
+
+            // Get all data
+            getData();
+
         });
         // Function for close applikation
         function closeApp() {
@@ -109,6 +113,45 @@
             var infoString = "Name: " + instructorInfo.name + "\nEmail: " + instructorInfo.email + "\nRole: " + instructorInfo.role;
             alert("Personal Information:\n" + infoString);
         }
+
+
+        // Fetch Data
+        async function get(url) {
+            try {
+                const response = await fetch(url, {
+                    method: 'get',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                return response.json();
+            } catch (error) {
+                console.error('Error:', error);
+                throw error; // Re-throw the error to propagate it further if needed
+            }
+        }
+
+        function init() {
+            getData();
+        }
+
+
+
+        async function getData() {
+            const result = await get(`getData?username=${username}`);
+
+            localStorage.setItem("Firstname", result[0].FirstName);
+            localStorage.setItem("Lastname", result[0].LastName);
+            localStorage.setItem("Kursus", result[0].KursusNavn);
+            localStorage.setItem("Lokale", result[0].LokaleNavn);
+
+        }
+
+
+        window.addEventListener("load", init)
 
     </script>
 

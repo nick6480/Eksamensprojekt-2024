@@ -12,7 +12,7 @@
             <button onclick="closeApp()">Luk programmet</button>
         </header>
         <section id="courses">
-            <button type="button">Show Courses</button>
+            <button type="button" onclick="showCourses()>Show Courses</button>
             <p id="coursesContent" style="display:none;"></p>
         </section>
 
@@ -37,18 +37,41 @@
         document.getElementById("studentName").textContent = username;
 
 
-        document.getElementById("courses").addEventListener('click', showCourses);
+        function init() {
+            getData();
+        }
 
+
+
+        async function getData() {
+            const result = await get(`getData?username=${username}`);
+
+            
+
+            localStorage.setItem("Firstname", result[0].FirstName);
+            localStorage.setItem("Lastname", result[0].LastName);
+            localStorage.setItem("Email", result[0].MailAdress);
+            localStorage.setItem("Kursus", result[0].KursusNavn);
+            localStorage.setItem("Lokale", result[0].LokaleNavn);
+                
+        }
 
         function showCourses() {
             // Hide all content sections
             hideAllContentSections();
 
-            const username = getUsername()
-            const course = get(`getCourses?username=${username}`)
 
+            var kursus = localStorage.getItem('Kursus');
+            if (kursus == null || kursus == "") {
+                document.getElementById("coursesContent").innerHTML = "Der er ingen kurser endnu.";
+            }
+            else {
+                document.getElementById("coursesContent").innerHTML = `${kursus}`;
+            }
+                
+            
             // Show courses content
-            document.getElementById("coursesContent").innerHTML = "Der er ingen kurser endnu.";
+
             document.getElementById("coursesContent").style.display = "block";
             document.getElementById("coursesContent").style.textAlign = "right"; // Align content to the right
         }
@@ -57,8 +80,18 @@
             // Hide all content sections
             hideAllContentSections();
 
+
+            var lokale = localStorage.getItem('Lokale');
+            
+            if (lokale == null || lokale == "") {
+                document.getElementById("locationContent").innerHTML = "Der er ingen Lokaler";
+            }
+            else {
+                document.getElementById("locationContent").innerHTML = `${lokale}`;
+            }
+
+
             // Show location content
-            document.getElementById("locationContent").innerHTML = "Der er ingen Lokaler";
             document.getElementById("locationContent").style.display = "block";
             document.getElementById("locationContent").style.textAlign = "right"; // Align content to the right
         }
@@ -67,9 +100,23 @@
             // Hide all content sections
             hideAllContentSections();
 
+
+
             // Show personal info content
+
             var personalInfoContent = document.getElementById("personalInfoContent");
-            personalInfoContent.innerHTML = "Der er ingen person-info";
+
+            var firstname = localStorage.getItem('Firstname');
+            var lastname = localStorage.getItem('Lastname');
+            var email = localStorage.getItem('Email');
+
+            if (firstname == null || firstname == "") {
+                personalInfoContent.innerHTML = "Der er ingen person-info";
+            }
+            else {
+                personalInfoContent.innerHTML = `${firstname}, ${lastname}, ${email}`;
+            }
+
             personalInfoContent.style.display = "block";
             personalInfoContent.style.position = "fixed";
             personalInfoContent.style.bottom = "20px";
@@ -90,9 +137,9 @@
         }
 
 
-        async function get(data, URL) {
+        async function get(url) {
             try {
-                const response = await fetch(URL, {
+                const response = await fetch(url, {
                     method: 'get',
                     headers: { 'Content-Type': 'application/json' },
                 });
@@ -107,22 +154,15 @@
                 throw error; // Re-throw the error to propagate it further if needed
             }
         }
-        
 
-
-
-
-
-
-
-
+      
 
         function closeApp() {
             window.close();
         }
 
 
-
+        window.addEventListener("load", init)
 
 
     </script>
