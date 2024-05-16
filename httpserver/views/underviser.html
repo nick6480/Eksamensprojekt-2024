@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal</title>
-    <link rel="stylesheet" href="Underviser.css">
+    <!--<link rel="stylesheet" href="Underviser.css">-->
 </head>
 <body>
     <!-- Sidebar -->
@@ -55,10 +55,11 @@
         function enrolledStudents() {
             hideAllContentSections(); // Hide all content sections first
             var studentContent = document.getElementById("Studentcontent");
+            var students = localStorage.getItem('Students');
             if (studentContent.style.display === "none") {
                 studentContent.style.display = "block";
                 studentContent.style.textAlign = "right";
-                studentContent.innerHTML = "List of enrolled students goes here."; // Legg til innholdet her
+                studentContent.innerHTML = `${students}`; // Legg til innholdet her
             } else {
                 studentContent.style.display = "none";
                 studentContent.innerHTML = "";
@@ -163,6 +164,7 @@
             localStorage.setItem("Lastname", result[0].LastName);
             localStorage.setItem("Course", result[0].KursusNavn);
             localStorage.setItem("Room", result[0].LokaleNavn);
+            localStorage.setItem("Students", result[0].StudentNames);
 
         }
 

@@ -1,0 +1,7 @@
+[
+{"Timestamp":"2024-05-16T00:31:56.8103206Z","URL":"http://localhost:8000/underviser","HttpMethod":"GET","UserHostName":"localhost:8000","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"}
+{"Timestamp":"2024-05-16T00:31:56.9775552Z","URL":"http://localhost:8000/getTeacherData?username=Doe","HttpMethod":"GET","UserHostName":"localhost:8000","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"},
+{"Timestamp":"2024-05-16T00:31:57.4486564Z","URL":"http://localhost:8000/getTeacherData?username=Doe","HttpMethod":"GET","UserHostName":"localhost:8000","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"}
+]{"Timestamp":"2024-05-16T00:35:56.6475501Z","URL":"http://localhost:8000/login","HttpMethod":"POST","UserHostName":"localhost:8000","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"}
+{"Timestamp":"2024-05-16T00:35:56.6864284Z","URL":"http://localhost:8000/studerende","HttpMethod":"GET","UserHostName":"localhost:8000","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"}
+{"Timestamp":"2024-05-16T00:35:56.778423Z","URL":"http://localhost:8000/getStudentData?username=nick6480","HttpMethod":"GET","UserHostName":"localhost:8000","UserAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"}
