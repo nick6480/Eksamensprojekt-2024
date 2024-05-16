@@ -1,6 +1,6 @@
 {
-  "DbServerIp": "NICK\\SQLEXPRESS",
+  "DbServerIp": "DESKTOP-T66VN3N\\SQLEXPRESS",
   "AuthType": "Windows Authentication",
-  "Username": "nicko",
+  "Username": "nick",
   "Password": "1234Abcd#"
 }

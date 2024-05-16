@@ -46,5 +46,17 @@
     "Username": null,
     "Action": "Update",
     "Target": "DB Settings"
+  },
+  {
+    "Timestamp": "2024-05-16T00:08:41.55899Z",
+    "Username": null,
+    "Action": "Create",
+    "Target": "Student: Steven"
+  },
+  {
+    "Timestamp": "2024-05-16T00:10:40.7546328Z",
+    "Username": "Admin1",
+    "Action": "Create",
+    "Target": "Room: 302"
   }
 ]
