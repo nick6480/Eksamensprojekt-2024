@@ -4,4 +4,4 @@
 - Admin1 , 1234Abcd#
 
 ## DB Settings
--Change settings.json in config before first startup
+- Change settings.json in config before first startup
