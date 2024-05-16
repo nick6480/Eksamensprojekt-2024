@@ -1,7 +1,6 @@
 @startuml
 class MainWindow {
     - loginHandler
-    - tableStateMachine
     - logHandler
     - dataHandler
 
@@ -36,11 +35,6 @@ class LogHandler {
     +ReadLogEntries()
 }
 
-class TableStateMachine {
-    + currentState
-    +setState()
-    +updateData()
-}
 
 class DbSettings {
     + DbServerId
@@ -62,7 +56,7 @@ class DataHandler {
 
 MainWindow -- LoginHandler
 MainWindow -- LogHandler
-MainWindow -- TableStateMachine
 MainWindow -- DataHandler
 DataHandler -- DbSettings
+LoginHandler -- DbSettings
 @enduml
