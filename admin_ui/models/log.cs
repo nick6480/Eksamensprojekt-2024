@@ -34,7 +34,7 @@ namespace admin_ui.log
 
     internal class LogHandler
     {
-        private string filePath = "log.json";  // Specify the path to your log file
+        private string filePath = "../../../logs/log.json";  // Specify the path to your log file
 
         public void NewLogEntry(string username, string action, string target)
         {
@@ -64,7 +64,7 @@ namespace admin_ui.log
 
         public List<LogEntry> ReadLogEntries()
         {
-            string fname = "log.JSON";
+            string fname = "../../../logs/log.json";
 
             var json = File.ReadAllText(fname);
             List<LogEntry>? _logEntries = JsonConvert.DeserializeObject<List<LogEntry>>(json);

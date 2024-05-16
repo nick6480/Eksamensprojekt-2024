@@ -49,7 +49,7 @@ namespace admin_ui.data
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 
 
-            DbSettings settings = DbSettings.ReadFromJson("settings.json");
+            DbSettings settings = DbSettings.ReadFromJson("../../../config/settings.json");
 
             builder.DataSource = settings.DbServerIp;
             builder.UserID = settings.Username;

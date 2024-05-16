@@ -367,7 +367,7 @@ namespace admin_ui
                 Password = sql_username_passwordbox.Password
             };
 
-            settings.SaveToJson("settings.json");
+            settings.SaveToJson("../../../config/settings.json");
 
             logHandler.NewLogEntry(loginHandler.GetLoggedInUser(), "Update", "DB Settings");
             update_data_grid();
@@ -375,7 +375,7 @@ namespace admin_ui
 
         private void updateSettings()
         {
-            DbSettings settings = DbSettings.ReadFromJson("settings.json");
+            DbSettings settings = DbSettings.ReadFromJson("../../../config/settings.json");
 
             db_server_ip_textbox.Text = settings.DbServerIp;
             db_auth_method_selector.Text = settings.AuthType;
