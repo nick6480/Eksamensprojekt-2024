@@ -62,7 +62,7 @@ namespace HttpListenerExample
                         }
                         else if (filename == "underviser")
                         {
-                            ServeFile(studentsFilePath, resp);
+                            ServeFile(teacherFilePath, resp);
                         }
                         else if (filename == "getStudentData")
                         {

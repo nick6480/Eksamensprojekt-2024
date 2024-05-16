@@ -69,10 +69,12 @@
         function courseDetail() {
             hideAllContentSections(); // Hide all content sections first
             var courseDetailContent = document.getElementById("courseDetailContent");
+            var course = localStorage.getItem('Course')
+
             if (courseDetailContent.style.display === "none") {
                 courseDetailContent.style.display = "block";
                 courseDetailContent.style.textAlign = "right";
-                courseDetailContent.innerHTML = "Course details go here."; // Legg til kursdetaljer her
+                courseDetailContent.innerHTML = `${course}`; // Legg til kursdetaljer her
             } else {
                 courseDetailContent.style.display = "none";
                 courseDetailContent.innerHTML = "";
@@ -83,10 +85,12 @@
         function showPersonalInfo() {
             hideAllContentSections(); // Hide all content sections first
             var roomContent = document.getElementById("roomContent");
+            var room = localStorage.getItem('Room');
+
             if (roomContent.style.display === "none") {
                 roomContent.style.display = "block";
                 roomContent.style.textAlign = "right";
-                roomContent.innerHTML = "Room information goes here."; // Legg til rominformasjon her
+                roomContent.innerHTML = `${room}`; // Legg til rominformasjon her
             } else {
                 roomContent.style.display = "none";
                 roomContent.innerHTML = "";
@@ -103,8 +107,11 @@
         // Function to check personal information
         function checkPersonalInfo() {
             // You can implement the logic to retrieve and display personal information here
+            var Firstname = localStorage.getItem('Firstname');
+            var Lastname = localStorage.getItem('Lastname');
+
             var instructorInfo = {
-                name: "John Doe",
+                name: `${Firstname} ${Lastname}`,
                 email: "john.doe@example.com",
                 role: "Instructor"
             };
@@ -134,6 +141,12 @@
             }
         }
 
+
+        function getUsername() {
+            var username = localStorage.getItem('username');
+            return username
+        }
+
         function init() {
             getData();
         }
@@ -141,12 +154,15 @@
 
 
         async function getData() {
-            const result = await get(`getData?username=${username}`);
+
+            username = getUsername();
+
+            const result = await get(`getTeacherData?username=${username}`);
 
             localStorage.setItem("Firstname", result[0].FirstName);
             localStorage.setItem("Lastname", result[0].LastName);
-            localStorage.setItem("Kursus", result[0].KursusNavn);
-            localStorage.setItem("Lokale", result[0].LokaleNavn);
+            localStorage.setItem("Course", result[0].KursusNavn);
+            localStorage.setItem("Room", result[0].LokaleNavn);
 
         }
 

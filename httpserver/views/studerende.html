@@ -6,27 +6,28 @@
     <title>Student Portal</title>
     <!--<link rel="stylesheet" href="Studerende.css">-->
     </head>
-    <body>
-        <header>
-            <h1>Velkommen, <span id="studentName"></span></h1>
-            <button onclick="closeApp()">Luk programmet</button>
-        </header>
-        <section id="courses">
-            <button type="button" onclick="showCourses()>Show Courses</button>
-            <p id="coursesContent" style="display:none;"></p>
-        </section>
+<body>
+    <header>
+        <h1>Velkommen, <span id="studentName"></span></h1>
+        <button onclick="closeApp()">Luk programmet</button>
+    </header>
 
-        <section id="location">
-            <button type="button" onclick="showLocation()">Show Location</button>
-            <p id="locationContent" style="display:none;"></p>
-        </section>
+    <section id="courses">
+        <button type="button" onclick="showCourses()">Show Courses</button>
+        <p id="coursesContent" style="display:none;"></p>
+    </section>
 
-        <section id="personal-info">
-            <button type="button" onclick="showPersonalInfo()">Show Personal Info</button>
-            <p id="personalInfoContent" style="display:none;"></p>
-        </section>
+    <section id="location">
+        <button type="button" onclick="showLocation()">Show Location</button>
+        <p id="locationContent" style="display:none;"></p>
+    </section>
 
-        <!-- <script src="Studerende.js"></script> -->
+    <section id="personal-info">
+        <button type="button" onclick="showPersonalInfo()">Show Personal Info</button>
+        <p id="personalInfoContent" style="display:none;"></p>
+    </section>
+
+    <!-- <script src="Studerende.js"></script> -->
     <!-- SCRIPT AND STYLE SHOUD BE IN THEIR OWN FILES BUT COULD NOT GET THE SERVER TO SERVE THEM-->
     <script>
 
@@ -44,16 +45,16 @@
 
 
         async function getData() {
-            const result = await get(`getData?username=${username}`);
+            const result = await get(`getStudentData?username=${username}`);
 
-            
+
 
             localStorage.setItem("Firstname", result[0].FirstName);
             localStorage.setItem("Lastname", result[0].LastName);
             localStorage.setItem("Email", result[0].MailAdress);
             localStorage.setItem("Kursus", result[0].KursusNavn);
             localStorage.setItem("Lokale", result[0].LokaleNavn);
-                
+
         }
 
         function showCourses() {
@@ -68,8 +69,8 @@
             else {
                 document.getElementById("coursesContent").innerHTML = `${kursus}`;
             }
-                
-            
+
+
             // Show courses content
 
             document.getElementById("coursesContent").style.display = "block";
@@ -82,7 +83,7 @@
 
 
             var lokale = localStorage.getItem('Lokale');
-            
+
             if (lokale == null || lokale == "") {
                 document.getElementById("locationContent").innerHTML = "Der er ingen Lokaler";
             }
@@ -155,7 +156,7 @@
             }
         }
 
-      
+
 
         function closeApp() {
             window.close();
@@ -229,5 +230,5 @@
             text-align: right;
         }
     </style>
-    </body>
+</body>
 </html>
