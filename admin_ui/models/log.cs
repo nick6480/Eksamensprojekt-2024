@@ -39,7 +39,6 @@ namespace admin_ui.log
         public void NewLogEntry(string username, string action, string target)
         {
 
-
             // Create a new log entry
             var logEntry = new LogEntry
             {

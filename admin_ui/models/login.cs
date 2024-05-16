@@ -1,6 +1,5 @@
-﻿using admin_ui.database;
+﻿using admin_ui.data;
 using admin_ui.log;
-using admin_ui.table;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,7 +26,7 @@ namespace admin_ui.login
         {
             List<string> error_msg = new List<string>();
 
-            // Conditions for valid l
+            // Conditions for valid login
             if (string.IsNullOrWhiteSpace(email)) { error_msg.Add("Email må ikke være tom"); }
             if (password.Length < 8) { error_msg.Add("Password skal have minimum 8 karaktere"); }
             if (!Regex.IsMatch(password, @"[a-zA-Z]")){ error_msg.Add("Passwordet skal have mindst 1 bogstav"); }

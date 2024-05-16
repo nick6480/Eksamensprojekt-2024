@@ -12,7 +12,7 @@ using System.Diagnostics;
 using System.Web;
 
 
-namespace admin_ui.database
+namespace admin_ui.data
 {
     internal class DbSettings
     {

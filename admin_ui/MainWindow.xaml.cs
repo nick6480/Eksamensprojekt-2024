@@ -6,9 +6,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 using admin_ui.login;
-using admin_ui.table;
 using admin_ui.log;
-using admin_ui.database;
+using admin_ui.data;
 using Newtonsoft.Json;
 using System.Data;
 
@@ -23,7 +22,6 @@ namespace admin_ui
     public partial class MainWindow : Window
     {
         private LoginHandler loginHandler;
-        private TableStateMachine tableStateMachine;
         private LogHandler logHandler;
         private DataHandler dataHandler;
         private System.Windows.Controls.ComboBox new_student_course;
@@ -33,7 +31,6 @@ namespace admin_ui
             InitializeComponent();
 
             loginHandler = new LoginHandler();
-            tableStateMachine = new TableStateMachine();
             logHandler = new LogHandler();
             dataHandler = new DataHandler();
 
@@ -67,8 +64,6 @@ namespace admin_ui
         }
 
         //---- Table ----
-
-
         private void getStudents() // Display overlay
         {
             dataTable.ItemsSource = null;
