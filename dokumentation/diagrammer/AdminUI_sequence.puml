@@ -1,0 +1,69 @@
+@startuml
+participant MainWindow as MainWindow
+participant LoginHandler as Login
+participant LogHandler as Log
+participant DataHandler as Data
+participant DbSettings as Settings
+
+MainWindow -> Login: Login
+activate MainWindow
+activate Login
+Login -> Settings: Get DB Config
+activate Settings
+Settings -> Settings: Read Json
+Settings --> Login: Return configs
+deactivate Settings
+Login -> Login: Validation local and DB
+
+alt failed auth
+    Login --> MainWindow: Return error msg
+    deactivate MainWindow
+else successful auth
+    Login -> MainWindow: Change gui to dashboard
+    activate MainWindow
+    deactivate Login
+end
+
+MainWindow -> Data: Get data
+activate MainWindow
+activate Data
+Data -> Settings: Get DB Config
+activate Settings
+Settings -> Settings: Read Json
+Settings --> Data: Return configs
+deactivate Settings
+Data -> Data: Retrieve from DB
+Data --> MainWindow: Update gui
+deactivate Data
+deactivate MainWindow
+
+MainWindow -> Settings: Update db config
+activate MainWindow
+activate Settings
+MainWindow -> Log: Update Log
+deactivate MainWindow
+activate Log
+Log -> Log: Update Log
+deactivate Log
+Settings -> Settings: Write Json
+deactivate Settings
+
+MainWindow -> Data: Retrieve data from DB for ListBox when creating new user/course/room
+activate MainWindow
+activate Data
+Data --> MainWindow: Return Data
+deactivate Data
+MainWindow -> Data: Create new data
+activate Data
+deactivate MainWindow
+Data -> Settings: Get DB Config
+activate Settings
+Settings -> Settings: Read Json
+Settings --> Data: Return configs
+deactivate Settings
+Data -> Data: Update db
+deactivate Data
+
+@enduml
+
+
